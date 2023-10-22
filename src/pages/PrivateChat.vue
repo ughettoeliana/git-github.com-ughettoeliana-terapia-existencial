@@ -70,12 +70,11 @@ export default {
 <template>
   <Loader v-if="userLoading" />
   <template v-else>
-    <h1>Conversacion con {{ user.email }}</h1>
-    <h2>Mensajes</h2>
+    <h1 class="text-center my-3">Chat con {{ user.email }}</h1>
     <div class="d-flex justify-content-around">
       <Loader v-if="messagesLoading" />
-      <template v-else>
-        <div class='w-50 d-flex flex-column justify-content-start'>
+      <template v-else >
+        <div class='w-50 d-flex flex-column justify-content-start border rounded'>
           <div v-for="message in messages"
                :key="message.id"
                class="mw-75 my-3 p-2 rounded align-self-start"
@@ -86,7 +85,7 @@ export default {
                 'align-self-end':message.senderId === authUser.id,
                }">
             <div class="">{{ message.message }}</div>
-            <div class="small text-right">{{ formatDate(message.created_at) || 'Enviando...' }}</div>
+            <div class="small text-right text-secondary">{{ formatDate(message.created_at) || 'Enviando...' }}</div>
           </div>
         </div>
       </template>

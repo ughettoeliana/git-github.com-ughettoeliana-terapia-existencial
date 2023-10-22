@@ -27,7 +27,7 @@ export default {
     <div class="row mx-auto my-5">
       <div class="card w-25 col-lg-6 m-2" v-for="service in services" :key="service.id">
         <div class="card-body ">
-          <h5 class="card-title">{{ service.name }} | {{ service.time }}<i class="fa-regular fa-clock m-2"></i></h5>
+          <h5 class="card-title">{{ service.name }} | {{ service.time }}<i class="fa-solid fa-clock mx-2" style="color: #21496b;"></i></h5>
           <p class="card-text">Agenda una sesion con el consultor Daniel del Valle</p>
           <BaseButton class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Agendar Cita</BaseButton>
 
