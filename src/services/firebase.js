@@ -11,6 +11,8 @@ const firebaseConfig = {
   appId: "1:301241560792:web:a96aac7322c982ab44f1ad"
 };
 
+// console.log(import.meta.env.API_KEY) // 123
+
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
