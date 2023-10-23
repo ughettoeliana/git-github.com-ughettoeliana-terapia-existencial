@@ -1,5 +1,5 @@
 <script>
-import PanelAdminNav from '../components/PanelAdminNav.vue'
+import PanelAdminNav from "../components/PanelAdminNav.vue";
 import Loader from "../components/Loader.vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
 
@@ -55,9 +55,13 @@ export default {
                 <td class="centrado">${{ service.price }}</td>
                 <td class="centrado">
                   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-warning me-md-2" type="button">
+                    <router-link
+                      :to="`/edit-service/${service.id}`"
+                      class="btn btn-warning me-md-2"
+                      type="button"
+                    >
                       Editar
-                    </button>
+                    </router-link>
                     <button
                       type="button"
                       class="btn btn-danger"

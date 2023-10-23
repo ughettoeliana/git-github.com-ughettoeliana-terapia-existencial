@@ -5,7 +5,7 @@ import BaseNavLi from "../components/BaseNavLi.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
 import Loader from "../components/Loader.vue";
 import { getUserProfileById, updateUserData } from "../services/user";
-import { subscribeToAuth, logout } from "../services/auth";
+import { subscribeToAuth } from "../services/auth";
 
 export default {
   name: "MyProfile",

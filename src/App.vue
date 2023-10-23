@@ -59,7 +59,6 @@ export default {
               Administrador</router-link>
           </BaseNavLi>
         </template>
-
         <template v-else>
           <BaseNavLi>
             <router-link to="/perfil" class="text-decoration-none text-black link-primary">Mi Perfil</router-link>
