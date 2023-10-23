@@ -7,6 +7,7 @@ import UserProfile from './../src/pages/UserProfile.vue';
 import UsersList from './../src/pages/UsersList.vue';
 import Chat from './../src/pages/chat.vue';
 import PanelAdministrador from './../src/pages/PanelAdministrador.vue';
+import CreateNewService from './../src/pages/CreateNewService.vue';
 import Services from './../src/pages/Services.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { subscribeToAuth } from '../src/services/auth';
@@ -19,6 +20,7 @@ const routes = [
   { path: '/servicios',        component: Services },
   { path: '/perfil',           component: MyProfile,               meta: { requiresAuth: true }, },
   { path: '/panel',            component: PanelAdministrador,      meta: { requiresAuth: true }, },
+  { path: '/create-service',   component: CreateNewService,        meta: { requiresAuth: true }, },
   { path: '/users-list',       component: UsersList,               meta: { requiresAuth: true }, },
   { path: '/usuario/:id',      component: UserProfile,             meta: { requiresAuth: true }, },
   { path: '/usuario/:id/chat', component: Chat,                    meta: { requiresAuth: true }, },
