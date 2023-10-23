@@ -1,14 +1,11 @@
 <script>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import BaseNavLi from "../components/BaseNavLi.vue";
+import PanelAdminNav from '../components/PanelAdminNav.vue'
 import Loader from "../components/Loader.vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
 
 export default {
   name: "PanelAdministrador",
-  components: { BaseButton, BaseLabel, BaseInput, BaseNavLi, Loader },
+  components: { Loader, PanelAdminNav },
   data() {
     return {
       panelLoading: true,
@@ -33,29 +30,7 @@ export default {
   <div class="w-75 mx-auto">
     <h1>Panel Administrador</h1>
 
-    <ul class="nav justify-content-center py-3">
-      <BaseNavLi
-        ><router-link
-          to="/panel"
-          class="text-decoration-none text-black link-primary"
-          >Servicios</router-link
-        >
-      </BaseNavLi>
-      <BaseNavLi
-        ><router-link
-          to="/crear-servicio"
-          class="text-decoration-none text-black link-primary"
-          >Crear un nuevo servicio</router-link
-        >
-      </BaseNavLi>
-      <BaseNavLi>
-        <router-link
-          to="/users-list"
-          class="text-decoration-none text-black link-primary"
-          >Chats</router-link
-        >
-      </BaseNavLi>
-    </ul>
+    <PanelAdminNav />
 
     <Loader v-if="panelLoading" />
     <template v-else>
