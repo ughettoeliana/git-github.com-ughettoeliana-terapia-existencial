@@ -4,10 +4,8 @@ import BaseLabel from "../components/BaseLabel.vue";
 import BaseNavLi from "../components/BaseNavLi.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
 import Loader from "../components/Loader.vue";
-import { getUserProfileById } from "../services/user";
+import { getUserProfileById, updateUserData } from "../services/user";
 import { subscribeToAuth, logout } from "../services/auth";
-import { db } from "../services/firebase";
-import { doc, updateDoc } from "firebase/firestore";
 
 export default {
   name: "MyProfile",
@@ -29,10 +27,6 @@ export default {
     };
   },
   methods: {
-    handleLogout() {
-      logout();
-      this.$router.push("/iniciar-sesion");
-    },
     toggleEditMode() {
       this.editMode = !this.editMode;
       if (this.editMode) {
@@ -40,24 +34,17 @@ export default {
       }
     },
     async handleUpdateUser() {
-      try {
-        const userRef = doc(db, "users", this.loggedUser.id);
-        await updateDoc(userRef, {
-          fullName: this.editedUser.fullName,
-          bio: this.editedUser.bio,
-        });
-        this.editMode = false;
-      } catch (error) {
-        console.error("Error al actualizar el usuario:", error);
-      }
+      const userId = this.loggedUser.id;
+      updateUserData(userId, this.editedUser);
+      this.loggedUser.fullName = this.editedUser.fullName;
+      this.loggedUser.bio = this.editedUser.bio;
+      this.editMode = false;
     },
   },
   mounted() {
     subscribeToAuth(async (user) => {
-      console.log("nueva autenticacion:", user);
       this.user = { ...user };
       this.loggedUser = await getUserProfileById(this.user.id);
-      console.log("usuario logeado:", this.loggedUser);
       this.userLoding = false;
     });
   },
@@ -73,8 +60,8 @@ export default {
         </h1>
         <div class="p-2">
           <div class="main-user-info">
-            <p v-if="editedUser.fullName">Nombre: {{ editedUser.fullName }}</p>
-            <p v-if="editedUser.bio">Biografía: {{ editedUser.bio }}</p>
+            <p v-if="loggedUser.fullName">Nombre: {{ loggedUser.fullName }}</p>
+            <p v-if="loggedUser.bio">Biografía: {{ loggedUser.bio }}</p>
           </div>
           <div class="main-user-info">
             <p>
@@ -98,6 +85,7 @@ export default {
                 id="fullName"
                 v-model="editedUser.fullName"
                 placeholder="Nombre completo"
+                required
               />
             </div>
             <div class="form-group">
@@ -106,9 +94,17 @@ export default {
                 id="bio"
                 v-model="editedUser.bio"
                 placeholder="Biografía"
+                required
               ></BaseTextarea>
             </div>
             <button class="btn btn-success my-2" type="submit">Guardar</button>
+            <button
+              editMode="false"
+              class="btn btn-secondary my-2 mx-2"
+              type="submit"
+            >
+              Cerrar
+            </button>
           </form>
         </div>
 

@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, serverTimestamp, setDoc, collection } from "firebase/firestore";
+import { doc, getDoc, getDocs, serverTimestamp, setDoc, collection, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 /**
@@ -16,14 +16,28 @@ export async function getUserProfileById(id) {
       id: docSnapshot.id,
       email: docSnapshot.data().email,
       rol: docSnapshot.data().rol,
+      fullName: docSnapshot.data().fullName || null,
+      bio:docSnapshot.data().bio || null,
     }
   } else {
     // docSnap.data() will be undefined in this case
     console.log("No such document!");
   }
-
-
 }
+
+
+export async function updateUserData(userId, editedUser ){
+  try {
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, {
+      fullName: editedUser.fullName,
+      bio: editedUser.bio,
+    });
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+  }
+}
+
 
 
 export async function getUsers() {
