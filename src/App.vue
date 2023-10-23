@@ -1,14 +1,13 @@
 <script>
 import BaseButton from "./components/BaseButton.vue";
 import BaseNavLi from "./components/BaseNavLi.vue";
-import Chats from "./pages/Chats.vue";
 import { subscribeToAuth, logout } from "./services/auth";
 import { getUserProfileById } from './services/user'
 
 
 export default {
   name: 'App',
-  components: { Chats, BaseButton, BaseNavLi },
+  components: { BaseButton, BaseNavLi },
   data() {
     return {
       user: {
@@ -73,9 +72,7 @@ export default {
           </BaseNavLi>
         </template>
         <template v-else>
-          <BaseNavLi>
-            <router-link to="/chats" class="text-decoration-none text-black link-primary">Chats</router-link>
-          </BaseNavLi>
+
 
           <BaseNavLi>
             <form action="#" @submit.prevent="handleLogout">

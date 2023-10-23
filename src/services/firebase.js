@@ -3,15 +3,13 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA1raZkQ88dL2u809tm_RI41FhfSUSMYbs",
-  authDomain: "terapia-existencial.firebaseapp.com",
-  projectId: "terapia-existencial",
-  storageBucket: "terapia-existencial.appspot.com",
-  messagingSenderId: "301241560792",
-  appId: "1:301241560792:web:a96aac7322c982ab44f1ad"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
-
-// console.log(import.meta.env.API_KEY) // 123
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

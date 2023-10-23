@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { collection, addDoc , getDocs, doc } from "firebase/firestore";
+import { collection, addDoc , getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export async function newService({ name, time, modality, price }) {
     try {
@@ -14,7 +14,6 @@ export async function newService({ name, time, modality, price }) {
       };
   
       // Guarda los datos en la colección de servicios
-      //await setDoc(serviceRef, serviceData);
       const newService = await addDoc(serviceRef, serviceData);
   
       console.log('Servicio guardado con éxito en Firebase.', newService.id);
@@ -43,6 +42,19 @@ export async function getServicesData() {
   } catch (error) {
     console.error('Error al obtener los datos de servicios:', error);
     return [];
+  }
+}
+
+
+export async function deleteServiceByID(id) {
+  try {
+    const serviceRef = doc(db, 'services', id);
+    await deleteDoc(serviceRef);
+    console.log('Servicio eliminado con éxito.');
+    return true; // Puedes devolver un valor para indicar que se eliminó con éxito
+  } catch (error) {
+    console.error('Error al eliminar el servicio:', error);
+    return false; // Puedes devolver un valor para indicar que hubo un error
   }
 }
 

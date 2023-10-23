@@ -36,10 +36,11 @@ export default {
     <Loader v-if="chatsLoading" />
     <template v-else>
         <div class=" min-vh-100">
+            <h1 class="text-center">Usuarios</h1>
             <div class="card mx-auto my-4" style="width: 20rem;">
                 <div class="list-group list-group-flush" v-for="user in users" :key="user.id">
                     <div class="list-group-item my-3 fw-bold">{{ user.email }} <router-link :to="`/usuario/${user.id}/chat`"
-                            class="btn btn-info text-black mx-3 my-3">Ir al
+                            class="btn btn-info text-black mx-3">Ir al
                             chat</router-link>
                     </div>
                 </div>

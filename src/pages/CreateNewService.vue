@@ -3,7 +3,7 @@ import BaseButton from '../components/BaseButton.vue';
 import BaseInput from '../components/BaseInput.vue';
 import BaseLabel from '../components/BaseLabel.vue';
 import BaseNavLi from '../components/BaseNavLi.vue';
-import { newService } from '../services/create-service';
+import { newService } from '../services/service';
 
 export default {
   name: 'CreateNewService',
