@@ -1,5 +1,8 @@
 <script>
+import BaseInput from "../components/BaseInput.vue";
+import BaseLabel from "../components/BaseLabel.vue";
 import BaseNavLi from "../components/BaseNavLi.vue";
+import BaseTextarea from "../components/BaseTextarea.vue";
 import Loader from "../components/Loader.vue";
 import { getUserProfileById } from "../services/user";
 import { subscribeToAuth, logout } from "../services/auth";
@@ -8,7 +11,7 @@ import { doc, updateDoc } from "firebase/firestore";
 
 export default {
   name: "MyProfile",
-  components: { Loader, BaseNavLi },
+  components: { Loader, BaseNavLi, BaseInput, BaseLabel, BaseTextarea },
   data() {
     return {
       userLoding: true,
@@ -69,29 +72,43 @@ export default {
           Mi perfil <i class="fa-solid fa-user mx-2" style="color: #21496b"></i>
         </h1>
         <div class="p-2">
-          <p>
-            Mail: <span class="fw-bold">{{ loggedUser.email }}</span>
-          </p>
-          <p>
-            Mi Rol: <span class="fw-bold">{{ loggedUser.rol }}</span>
-          </p>
+          <div class="main-user-info">
+            <p v-if="editedUser.fullName">Nombre: {{ editedUser.fullName }}</p>
+            <p v-if="editedUser.bio">Biografía: {{ editedUser.bio }}</p>
+          </div>
+          <div class="main-user-info">
+            <p>
+              Mail: <span class="fw-bold">{{ loggedUser.email }}</span>
+            </p>
+            <p>
+              Mi Rol: <span class="fw-bold">{{ loggedUser.rol }}</span>
+            </p>
+          </div>
         </div>
-        <button class="btn btn-dark" @click="toggleEditMode">
+        <button v-if="!editMode" class="btn btn-dark" @click="toggleEditMode">
           Editar mi perfil
         </button>
 
         <!-- Form de editar perfil del usuario -->
         <div v-if="editMode">
-          <form @submit.prevent="handleUpdateUser">
-            <input
-              v-model="editedUser.fullName"
-              placeholder="Nombre completo"
-            />
-            <textarea
-              v-model="editedUser.bio"
-              placeholder="Biografía"
-            ></textarea>
-            <button type="submit">Guardar Cambios</button>
+          <form @submit.prevent="handleUpdateUser" class="form my-2">
+            <div class="form-group my-3">
+              <BaseLabel for="fullName">Nombre Completo</BaseLabel>
+              <BaseInput
+                id="fullName"
+                v-model="editedUser.fullName"
+                placeholder="Nombre completo"
+              />
+            </div>
+            <div class="form-group">
+              <BaseLabel for="bio">Biografía</BaseLabel>
+              <BaseTextarea
+                id="bio"
+                v-model="editedUser.bio"
+                placeholder="Biografía"
+              ></BaseTextarea>
+            </div>
+            <button class="btn btn-success my-2" type="submit">Guardar</button>
           </form>
         </div>
 

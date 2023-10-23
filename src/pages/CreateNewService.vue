@@ -53,7 +53,7 @@ export default {
           <BaseLabel for="name">Nombre</BaseLabel>
           <BaseInput id="name" name="name" type="text" v-model="form.name" :disabled="createServiceLoading" required/>
         </div>
-        <div class="form-group w-25  mb-3">
+        <div class=" w-25  mb-3">
           <BaseLabel for="time">Tiempo</BaseLabel>
           <BaseInput id="time" name="time" type="time" v-model="form.time" :disabled="createServiceLoading" required/>
         </div>
