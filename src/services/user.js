@@ -12,12 +12,12 @@ export async function getUserProfileById(id) {
 
   if (docSnapshot.exists()) {
     console.log("Document data:", docSnapshot.data());
-     return {
+    return {
       id: docSnapshot.id,
       email: docSnapshot.data().email,
       rol: docSnapshot.data().rol,
       fullName: docSnapshot.data().fullName || null,
-      bio:docSnapshot.data().bio || null,
+      bio: docSnapshot.data().bio || null,
     }
   } else {
     // docSnap.data() will be undefined in this case
@@ -26,7 +26,7 @@ export async function getUserProfileById(id) {
 }
 
 
-export async function updateUserData(userId, editedUser ){
+export async function updateUserData(userId, editedUser) {
   try {
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, {

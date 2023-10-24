@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="navbar">
     <ul class="nav justify-content-center py-3">
       <BaseNavLi
         ><router-link

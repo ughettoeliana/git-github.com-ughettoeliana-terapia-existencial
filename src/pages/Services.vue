@@ -25,7 +25,7 @@ export default {
 <template>
   <div class="container fw-medium mx-auto">
     <h1>Servicios</h1>
-    <div class="row mx-auto my-5">
+    <div class="row mx-auto">
       <div
         class="d-flex"
         v-for="service in services"
