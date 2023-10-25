@@ -45,26 +45,6 @@ export async function getServicesData() {
   }
 }
 
-export async function getServiceDataById(id) {
-  const refService = doc(db, `services/${id}`);
-  const docSnapshot = await getDoc(refService);
-
-  if (docSnapshot.exists()) {
-    console.log("Document data:", docSnapshot.data());
-    return {
-      id: docSnapshot.id,
-      name: docSnapshot.data().name,
-      price: docSnapshot.data().price,
-      modality: docSnapshot.data().modality,
-      time: docSnapshot.data().time,
-    }
-  } else {
-    // docSnap.data() will be undefined in this case
-    console.log("No such document!");
-  }
-};
-
-
 
 export async function deleteServiceByID(id) {
   try {

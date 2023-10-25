@@ -49,9 +49,7 @@ export default {
             >Acerca de nosotros</router-link
           >
         </BaseNavLi>
-        <BaseNavLi>
-          <router-link to="/servicios" class="grey-text">Servicios</router-link>
-        </BaseNavLi>
+
 
         <template v-if="loggedUser.rol === 'admin'">
           <BaseNavLi
@@ -79,6 +77,9 @@ export default {
         </template>
         <template v-else>
           <BaseNavLi>
+          <router-link to="/servicios" class="grey-text">Servicios</router-link>
+        </BaseNavLi>
+          <BaseNavLi>
             <form action="#" @submit.prevent="handleLogout">
               <button class="logout-button">
                 <strong>{{ user.email }}</strong> Cerrar Sesion
@@ -97,22 +98,21 @@ export default {
   <footer class="footer">
     <div class="footer-columns">
       <div class="footer-column">
-        <h5 class="footer-heading">Product</h5>
-        <p><a  class="grey-text">Features</a></p>
-        <p><a class="grey-text">Learn</a></p>
-        <p><a class="grey-text">Plugins</a></p>
+        <h5 class="footer-heading">Diseño y Programación Web</h5>
+        <p><a  class="grey-text">Profesor: Santiago Gallino</a></p>
+        <p><a class="grey-text">Cliente Web Mobile</a></p>
+        <p><a class="grey-text">4 Cuatrimestre</a></p>
       </div>
       <div class="footer-column">
-        <h5 class="footer-heading">Template</h5>
-        <p><a class="grey-text">Blog</a></p>
-        <p><a class="grey-text">Personal</a></p>
-        <p><a class="grey-text">Startup</a></p>
+        <h5 class="footer-heading">Davinci</h5>
+        <p><a class="grey-text">Turno Noche</a></p>
+        <p><a class="grey-text">Comision B</a></p>
+        <p><a class="grey-text">1er Parcial</a></p>
       </div>
       <div class="footer-column">
-        <h5 class="footer-heading">Resources</h5>
-        <p><a class="grey-text">Update</a></p>
-        <p><a class="grey-text">Community</a></p>
-        <p><a class="grey-text">Contact</a></p>
+        <h5 class="footer-heading">Alumna</h5>
+        <p><a class="grey-text">Eliana Ughetto</a></p>
+        <p><a class="grey-text">21 años</a></p>
       </div>
     </div>
   </footer>
