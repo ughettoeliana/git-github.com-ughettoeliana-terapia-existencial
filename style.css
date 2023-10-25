@@ -184,6 +184,26 @@ a {
   align-self: center;
 }
 
+.home-form-container {
+  margin: 3rem auto;
+  max-width: 500px;
+}
+
+.home-form-container .text-center {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.home-form-container .form textarea {
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.home-form-container input {
+  padding: 0.5rem;
+}
+
 /* img styles */
 
 .img-container {
@@ -204,8 +224,8 @@ a {
 }
 
 .blue-cards-container .blue-card {
-  padding: 1rem 2rem;
-  margin: 0 2rem;
+  padding: 2rem 2rem;
+  margin: 2rem;
   background-color: rgb(224, 242, 254);
   border-radius: 10px;
   border: 1px solid rgba(14, 165, 233, 0.16);
@@ -213,6 +233,7 @@ a {
 
 .profile-card-container {
   padding: 1.5rem;
+  margin: 4rem 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -240,6 +261,17 @@ a {
 .img-container .img-fluid.profile-img {
   width: 30%;
   align-self: self-end;
+}
+
+.frase-container {
+  margin: 6rem auto;
+  padding: 1rem;
+  max-width: 600px;
+}
+
+.frase-container .fs-3 {
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 /* Footer Styles */
@@ -303,7 +335,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -313,7 +345,7 @@ a {
   background-color: #fff;
   padding: 1.5em;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -465,7 +497,23 @@ td {
   margin-top: 4rem;
 }
 
+.pr-2 {
+  padding-right: 0.7rem;
+}
+
+.pl-2 {
+  padding-left: 0.7rem;
+}
+
 /* Perfil de el usuario visto por el Admin styles */
+
+.link-underline:hover {
+  text-decoration: underline #21496b;
+}
+
+.main-user-info-container {
+  max-width: 600px;
+}
 
 /* Chat Styles */
 
@@ -478,6 +526,7 @@ td {
 }
 
 .chat-message {
+  margin-top: 0.5rem;
   padding: 1em;
   border-radius: 10px;
 }
@@ -523,31 +572,31 @@ td {
 
 /* My profile styles */
 
-.my-profile-icon{
+.my-profile-icon {
   font-size: 20px;
 }
 
-.main-user-info{
+.main-user-info {
   margin-right: 0.5em;
   font-size: 20px;
 }
 
-span .bold-text{
+span .bold-text {
   padding: 0.5em;
 }
 
-.bold-text{
+.bold-text {
   font-weight: 600;
 }
 
-.edit-profile-modal .edit-form .edit-form-group{
+.edit-profile-modal .edit-form .edit-form-group {
   display: flex;
   flex-direction: column;
   padding-right: 0;
   margin-bottom: 0.8rem;
 }
- 
-.edit-profile-modal  label{
+
+.edit-profile-modal label {
   margin-top: 1.3em;
   margin-bottom: 0.5em;
 }
@@ -558,24 +607,9 @@ span .bold-text{
   border-radius: 10px;
 }
 
+/* About Me page */
 
-
-/* Loader */
-/* 
-.loader {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+.about-info {
+  max-width: 1000px;
+  line-height: 1.5rem;
 }
-
-.loader:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #999;
-  border-color: #999 transparent #999 transparent;
-  animation: loader 1.2s linear infinite;
-} */
