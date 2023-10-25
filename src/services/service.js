@@ -1,25 +1,25 @@
 import { db } from "./firebase";
-import { collection, addDoc , getDocs, doc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 export async function newService({ name, time, modality, price }) {
-    try {
-      const serviceRef = collection(db, 'services');
-  
-      // Define los datos del servicio
-      const serviceData = {
-        name: name,
-        time: time,
-        price: price,
-        modality: modality,
-      };
-  
-      // Guarda los datos en la colección de servicios
-      const newService = await addDoc(serviceRef, serviceData);
-  
-      console.log('Servicio guardado con éxito en Firebase.', newService.id);
-    } catch (error) {
-      console.error('Error al guardar el servicio:', error);
-    }
+  try {
+    const serviceRef = collection(db, 'services');
+
+    // Define los datos del servicio
+    const serviceData = {
+      name: name,
+      time: time,
+      price: price,
+      modality: modality,
+    };
+
+    // Guarda los datos en la colección de servicios
+    const newService = await addDoc(serviceRef, serviceData);
+
+    console.log('Servicio guardado con éxito en Firebase.', newService.id);
+  } catch (error) {
+    console.error('Error al guardar el servicio:', error);
+  }
 }
 
 export async function getServicesData() {
@@ -45,6 +45,26 @@ export async function getServicesData() {
   }
 }
 
+export async function getServiceDataById(id) {
+  const refService = doc(db, `services/${id}`);
+  const docSnapshot = await getDoc(refService);
+
+  if (docSnapshot.exists()) {
+    console.log("Document data:", docSnapshot.data());
+    return {
+      id: docSnapshot.id,
+      name: docSnapshot.data().name,
+      price: docSnapshot.data().price,
+      modality: docSnapshot.data().modality,
+      time: docSnapshot.data().time,
+    }
+  } else {
+    // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+  }
+};
+
+
 
 export async function deleteServiceByID(id) {
   try {
@@ -57,6 +77,15 @@ export async function deleteServiceByID(id) {
     return false; // Puedes devolver un valor para indicar que hubo un error
   }
 }
+
+
+//funcion del modal
+
+
+
+
+
+
 
 
 

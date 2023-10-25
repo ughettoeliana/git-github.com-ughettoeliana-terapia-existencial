@@ -53,69 +53,67 @@ export default {
 <template>
   <Loader v-if="userLoding" />
   <template v-else>
-    <div class="container d-flex justify-content-around">
+    <div class="">
+      <h1 class="h1">
+        Mi perfil <i class="fa-solid fa-user mx-2 my-profile-icon" style="color: #21496b"></i>
+      </h1>
       <div class="">
-        <h1 class="mb-3 font-bold text-3xl">
-          Mi perfil <i class="fa-solid fa-user mx-2" style="color: #21496b"></i>
-        </h1>
-        <div class="p-2">
-          <div class="main-user-info">
-            <p v-if="loggedUser.fullName">Nombre: {{ loggedUser.fullName }}</p>
-            <p v-if="loggedUser.bio">Biografía: {{ loggedUser.bio }}</p>
-          </div>
-          <div class="main-user-info">
-            <p>
-              Mail: <span class="fw-bold">{{ loggedUser.email }}</span>
-            </p>
-            <p>
-              Mi Rol: <span class="fw-bold">{{ loggedUser.rol }}</span>
-            </p>
-          </div>
+        <div class="main-user-info">
+          <p v-if="loggedUser.fullName">
+            Nombre: <span class='bold-text'>{{ loggedUser.fullName }}</span>
+          </p>
+          <p v-if="loggedUser.bio">Biografía: <span class='bold-text'>{{ loggedUser.bio }}</span></p>
         </div>
-        <button v-if="!editMode" class="btn btn-dark" @click="toggleEditMode">
-          Editar mi perfil
-        </button>
+        <div class="main-user-info">
+          <p>
+            Mail: <span class=""> <span class='bold-text'>{{ loggedUser.email }}</span></span>
+          </p>
+          <p>
+            Mi Rol: <span class=""> <span class='bold-text'>{{ loggedUser.rol }}</span></span>
+          </p>
+        </div>
+      </div>
+      <button v-if="!editMode" class="btn-edit mb-2" @click="toggleEditMode">
+        Editar mi perfil
+      </button>
 
-        <!-- Form de editar perfil del usuario -->
-        <div v-if="editMode">
-          <form @submit.prevent="handleUpdateUser" class="form my-2">
-            <div class="form-group my-3">
-              <BaseLabel for="fullName">Nombre Completo</BaseLabel>
-              <BaseInput
-                id="fullName"
-                v-model="editedUser.fullName"
-                placeholder="Nombre completo"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <BaseLabel for="bio">Biografía</BaseLabel>
-              <BaseTextarea
-                id="bio"
-                v-model="editedUser.bio"
-                placeholder="Biografía"
-                required
-              ></BaseTextarea>
-            </div>
-            <button class="btn btn-success my-2" type="submit">Guardar</button>
-            <button
-              editMode="false"
-              class="btn btn-secondary my-2 mx-2"
-              type="submit"
-            >
-              Cerrar
-            </button>
-          </form>
-        </div>
-
-        <div>
-          <router-link
-            :to="`/usuario/1zIiuPCeTDXCaWu1JBnZIozLDG53/chat`"
-            class="btn btn-info text-black mx-auto my-3"
-          >
-            Ir al chat con el admin
-          </router-link>
-        </div>
+      <!-- Form de editar perfil del usuario -->
+      <div v-if="editMode" class="edit-profile-modal">
+        <form @submit.prevent="handleUpdateUser" class="edit-form mt-2">
+          <div class="edit-form-group">
+            <BaseLabel for="fullName">Nombre Completo</BaseLabel>
+            <BaseInput
+              class="edit-form-control"
+              id="fullName"
+              v-model="editedUser.fullName"
+              placeholder="Nombre completo"
+              required
+            />
+          </div>
+          <div class="edit-form-group">
+            <BaseLabel for="bio">Biografía</BaseLabel>
+            <BaseTextarea
+              class="edit-form-control"
+              id="bio"
+              v-model="editedUser.bio"
+              placeholder="Biografía"
+              required
+            ></BaseTextarea>
+          </div>
+          <button editMode="false" class="btn-close mr-2" type="submit">
+            Cerrar
+          </button>
+          <button class="mb-2 btn-primary" type="submit">Guardar</button>
+        </form>
+      </div>
+      <div>
+        <router-link
+          :to="`/usuario/1zIiuPCeTDXCaWu1JBnZIozLDG53/chat`"
+          class="btn-primary mt-2"
+          v-if="!editMode"
+        >
+          Ir al chat con el admin
+        </router-link>
       </div>
     </div>
   </template>

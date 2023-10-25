@@ -1,9 +1,9 @@
 <script>
-import Loader from '../components/Loader.vue';
-import { getUserProfileById } from '../services/user';
+import Loader from "../components/Loader.vue";
+import { getUserProfileById } from "../services/user";
 
 export default {
-  name: 'UserProfile',
+  name: "UserProfile",
   components: { Loader },
   data() {
     return {
@@ -11,26 +11,44 @@ export default {
       user: {
         id: null,
         email: null,
-        rol: null
+        rol: null,
       },
+      loggedUser: {},
     };
   },
   async mounted() {
     this.userLoding = true;
-    this.user = await getUserProfileById(this.$route.params.id);
+    this.loggedUser = await getUserProfileById(this.$route.params.id);
     this.userLoding = false;
   },
- 
-}
+};
 </script>
 <template>
   <Loader v-if="userLoding" />
   <template v-else>
-    <div class="container">
-      <h1 class="mb-3 font-bold text-3xl">Perfil de: {{ user.email }}</h1>
-    </div>
-    <div class="container">
-      <router-link :to="`/usuario/${user.id}/chat`" class="btn btn-info text-black mx-auto my-3">Mensaje</router-link>
+    <div class="">
+      <div class="">
+        <h1 class="h1">
+          <i class="fa-solid fa-user" style="color: #21496b"></i> Perfil de
+        </h1>
+        <div class="">
+          <div class="main-user-info">
+            <p v-if="loggedUser.fullName">Nombre: {{ loggedUser.fullName }}</p>
+            <p v-if="loggedUser.bio">Biografía: {{ loggedUser.bio }}</p>
+          </div>
+          <div class="main-user-info">
+            <p>
+              Mail: <span class="">{{ loggedUser.email }}</span>
+            </p>
+            <p>
+              Mi Rol: <span class="">{{ loggedUser.rol }}</span>
+            </p>
+          </div>
+        </div>
+        <router-link :to="`/usuario/${loggedUser.id}/chat`" class="btn-primary mr-2 mt-2"
+          >Mensaje</router-link
+        >
+      </div>
     </div>
   </template>
 </template>

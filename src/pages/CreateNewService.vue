@@ -3,7 +3,7 @@ import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseNavLi from "../components/BaseNavLi.vue";
-import PanelAdminNav from '../components/PanelAdminNav.vue'
+import PanelAdminNav from "../components/PanelAdminNav.vue";
 import { newService } from "../services/service";
 
 export default {
@@ -35,17 +35,13 @@ export default {
 };
 </script>
 <template>
-  <div class="w-75 mx-auto">
-    <h1 class="text-center">Crear un nuevo servicio</h1>
+  <div class="create-new-service-page">
+    <h1 class="h1">Crear un nuevo servicio</h1>
     <PanelAdminNav />
 
-    <div class="abs-center w-50 mx-auto">
-      <form
-        action="#"
-        @submit.prevent="handleCreateNewService"
-        class="p-3 form d-inline"
-      >
-        <div class="form-group mb-3">
+    <div class="form">
+      <form action="#" @submit.prevent="handleCreateNewService" class="form">
+        <div class="form-group">
           <BaseLabel for="name">Nombre</BaseLabel>
           <BaseInput
             id="name"
@@ -56,24 +52,23 @@ export default {
             required
           />
         </div>
-        <div class="w-25 mb-3">
-          <BaseLabel for="time">Tiempo</BaseLabel>
-          <BaseInput
-            id="time"
-            name="time"
-            type="time"
-            v-model="form.time"
-            :disabled="createServiceLoading"
-            required
-          />
-        </div>
-        <div class="form-group w-25 mb-3">
-          <BaseLabel for="price">Precio</BaseLabel>
-          <div class="input-group mb-3">
-            <span class="input-group-text">$</span>
+        <div class="d-flex">
+          <div class="form-group">
+            <BaseLabel for="time">Tiempo</BaseLabel>
             <BaseInput
+              id="time"
+              name="time"
+              type="time"
+              v-model="form.time"
+              :disabled="createServiceLoading"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <BaseLabel for="price">Precio</BaseLabel>
+            <BaseInput
+              class="price-input"
               id="price"
-              class="form-control"
               name="price"
               type="number"
               v-model="form.price"
@@ -82,31 +77,29 @@ export default {
             />
           </div>
         </div>
-        <div class="form-group w-50 mb-3">
+        <div class="form-group">
           <p>Modalidad</p>
-          <div class="form-check">
+          <div class="">
             <input
-              class="form-check-input"
+              class=""
               type="radio"
               name="modality"
               id="virtual"
               value="Virtual"
               v-model="form.modality"
             />
-            <label class="form-check-label" for="virtual"> Virtual </label>
+            <label class="" for="virtual"> Virtual </label>
           </div>
-          <div class="form-check">
+          <div class="">
             <input
-              class="form-check-input"
+              class=""
               type="radio"
               name="modality"
               id="presencial"
               value="Presencial"
               v-model="form.modality"
             />
-            <label class="form-check-label" for="presencial">
-              Presencial
-            </label>
+            <label class="" for="presencial"> Presencial </label>
           </div>
           <p v-if="!form.modality" class="text-danger">
             Debes seleccionar al menos una opción.

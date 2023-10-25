@@ -9,25 +9,25 @@ export default {
 
 <template>
   <div class="navbar">
-    <ul class="nav justify-content-center py-3">
+    <ul class="nav">
       <BaseNavLi
         ><router-link
           to="/panel"
-          class="text-decoration-none text-black link-primary"
+          class="grey-text"
           >Servicios</router-link
         >
       </BaseNavLi>
       <BaseNavLi
         ><router-link
           to="/create-service"
-          class="text-decoration-none text-black link-primary"
+          class="grey-text"
           >Crear un nuevo servicio</router-link
         >
       </BaseNavLi>
       <BaseNavLi>
         <router-link
           to="/users-list"
-          class="text-decoration-none text-black link-primary"
+          class="grey-text"
           >Chats</router-link
         >
       </BaseNavLi>

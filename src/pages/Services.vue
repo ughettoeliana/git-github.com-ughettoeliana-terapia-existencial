@@ -11,9 +11,18 @@ export default {
   components: { BaseButton, BaseLabel, BaseInput, BaseNavLi, Loader },
   data() {
     return {
+      modalVisible: false,
       panelLoading: true,
       services: [],
     };
+  },
+  methods: {
+    showModal() {
+      this.modalVisible = true;
+    },
+    closeModal() {
+      this.modalVisible = false;
+    },
   },
   async mounted() {
     this.services = await getServicesData();
@@ -23,39 +32,39 @@ export default {
 </script>
 
 <template>
-  <div class="container fw-medium mx-auto">
-    <h1>Servicios</h1>
-    <div class="row mx-auto">
-      <div
-        class="d-flex"
-        v-for="service in services"
-        :key="service.id"
-        style="width: 18rem"
-      >
-        <div
-          class=" border rounded p-3 my-3 align-self-stretch"
-        >
-          <div class="card-body align-self-stretch">
-            <h5 class="card-title">{{ service.name }}</h5>
+  <div class="service-page">
+    <h1 class="h1">Servicios</h1>
+    <div class="cards-container">
+      <div class="card" v-for="service in services" :key="service.id">
+        <div class="card-body">
+          <h2 class="dark-blue-text">{{ service.name }}</h2>
+          <p>
+            <i class="fa-solid fa-clock" style="color: #21496b"></i>
+            {{ service.time }}
+          </p>
+          <p>$ {{ service.price }}</p>
+          <p class="card-text">
+            Agenda una sesion con el consultor Daniel del Valle
+          </p>
+          <BaseButton @click="showModal" class="btn">Agendar Cita</BaseButton>
+        </div>
+
+        <div v-if="modalVisible" class="modal">
+          <div class="modal-content">
+            
+            <h2>Agendaste la cita: {{ service.name }}</h2>
             <p>
-              <i class="fa-solid fa-clock" style="color: #21496b"></i>
-              {{ service.time }}
+              Gracias, en breve nos estaremos comunicando con usted para agendar
+              el horario
             </p>
-            <p>$ {{ service.price }}</p>
-            <p class="card-text">
-              Agenda una sesion con el consultor Daniel del Valle
-            </p>
-            <BaseButton
-              class="btn"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              >Agendar Cita</BaseButton
-            >
+            <button @click="closeModal" class="btn-close">
+              Cerrar
+            </button>
           </div>
         </div>
 
         <!-- Modal de boostrap -->
-        <div
+        <!-- <div
           class="modal fade"
           id="exampleModal"
           tabindex="-1"
@@ -92,7 +101,7 @@ export default {
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

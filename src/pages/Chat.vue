@@ -75,46 +75,45 @@ export default {
 <template>
   <Loader v-if="userLoading" />
   <template v-else>
-    <h1 class="text-center my-3">Chat con {{ user.email }}</h1>
-    <div class="d-flex justify-content-around">
+    <h1 class="h1">Chat con {{ user.email }}</h1>
+    <div class="">
       <Loader v-if="messagesLoading" />
       <template v-else>
         <div
-          class="w-50 d-flex flex-column justify-content-start border rounded"
+          class="chat-message-container"
         >
           <div
             v-for="message in messages"
             :key="message.id"
-            class="mw-75 my-3 p-2 rounded align-self-start"
+            class="chat-message"
             :class="{
-              'bg-primary-subtle': message.senderId !== authUser.id,
-              'bg-body-secondary': message.senderId === authUser.id,
-              'justify-content-end': message.senderId === authUser.id,
+              'bg-light-blue': message.senderId !== authUser.id,
+              'bg-lighter-blue': message.senderId === authUser.id,
+              'align-self-start': message.senderId !== authUser.id,
               'align-self-end': message.senderId === authUser.id,
             }"
           >
             <div class="">{{ message.message }}</div>
-            <div class="small text-right text-secondary">
+            <div class="time-message grey-text">
               {{ formatDate(message.created_at) || "Enviando..." }}
             </div>
           </div>
         </div>
       </template>
     </div>
-
     <form
       action="#"
       @submit.prevent="handleSendMessage"
-      class="my-4 p-2 border rounded"
+      class=""
     >
-      <div class="d-flex justify-content-center align-items-center">
-        <div class="my-3">
+      <div class="send-message-form">
+        <div class="form-group">
           <BaseTextarea
             id="message"
             v-model="newMessage.message"
           ></BaseTextarea>
         </div>
-        <div class="m-3">
+        <div class="">
           <BaseButton></BaseButton>
         </div>
       </div>
