@@ -104,7 +104,6 @@ export default {
     <form
       action="#"
       @submit.prevent="handleSendMessage"
-      class=""
     >
       <div class="send-message-form">
         <div class="form-group">

@@ -25,6 +25,13 @@ export async function getUserProfileById(id) {
   }
 }
 
+/**
+ * 
+ * @param {string} userId 
+ * @param {{fullName: string, bio: string}} editedUser 
+ * 
+ */
+
 
 export async function updateUserData(userId, editedUser) {
   try {
@@ -38,7 +45,10 @@ export async function updateUserData(userId, editedUser) {
   }
 }
 
-
+/**
+ * 
+ * @returns un listado de usuarios con sus datos
+ */
 
 export async function getUsers() {
   const usersRef = collection(db, 'users');

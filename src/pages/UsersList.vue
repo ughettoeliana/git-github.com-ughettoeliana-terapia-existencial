@@ -21,18 +21,30 @@ export default {
     return {
       chatsLoading: true,
       users: [],
+      filteredUsers: [],
     };
   },
   methods: {
     async getUsers() {
-      // Llama a la función que obtiene los usuarios de Firebase Firestore
       this.users = await getUsers();
+      this.updateFilteredUsers();
       this.chatsLoading = false;
     },
+
+    updateFilteredUsers() {
+      this.filteredUsers = this.filteredUsersList;
+    },
   },
+
   async mounted() {
     this.getUsers();
   },
+
+  computed: {
+    filteredUsersList() {
+      return this.users.filter(user => user.rol === 'user');
+    }
+  }
 };
 </script>
 
@@ -43,10 +55,13 @@ export default {
   <template v-else>
     <div class="blue-cards-container">
       <div class="">
-        <div class="blue-card" v-for="user in users" :key="user.id">
-          <div class="dark-blue-text">
-            <router-link :to="`/usuario/${user.id}`" class="mr-2"
-            >{{ user.email }}</router-link>
+        <div class="blue-card" v-for="user in filteredUsers" :key="user.id">
+          <div class="">
+            <router-link
+              :to="`/usuario/${user.id}`"
+              class="mr-2 dark-blue-text link-underline bold-text"
+              >{{ user.email }}</router-link
+            >
             <router-link :to="`/usuario/${user.id}/chat`" class="btn-primary"
               >Ir al chat</router-link
             >

@@ -53,7 +53,7 @@ export default {
 <template>
   <Loader v-if="userLoding" />
   <template v-else>
-    <div class="">
+    <div class="main-user-info-container">
       <h1 class="h1">
         Mi perfil <i class="fa-solid fa-user mx-2 my-profile-icon" style="color: #21496b"></i>
       </h1>

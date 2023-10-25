@@ -11,6 +11,7 @@ export default {
       modalVisible: false,
       panelLoading: true,
       services: [],
+      selectedService: null,
     };
   },
   async mounted() {
@@ -18,11 +19,13 @@ export default {
     this.panelLoading = false;
   },
   methods: {
-    showModal() {
+    showModal(service) {
+      this.selectedService = service;
       this.modalVisible = true;
     },
     closeModal() {
       this.modalVisible = false;
+      this.selectedService = null;
     },
     async deleteService(id) {
       const deleted = await deleteServiceByID(id);
@@ -53,7 +56,7 @@ export default {
             </tr>
           </thead>
           <template v-for="service in services" :key="service.id">
-            <tbody >
+            <tbody>
               <tr>
                 <td class="grey-bg">{{ service.name }}</td>
                 <td class="grey-bg">{{ service.time }}</td>
@@ -61,23 +64,18 @@ export default {
                 <td class="grey-bg">${{ service.price }}</td>
                 <td class="grey-bg">
                   <div class="">
-                    <button class="btn-edit">
-                      <router-link
-                        :to="`/edit-service/${service.id}`"
-                        type="button"
-                      >
-                        Editar
-                      </router-link>
-                    </button>
                     <button
                       type="button"
                       class="btn btn-danger"
-                      @click="showModal"
+                      @click="showModal(service)"
                     >
                       Eliminar
                     </button>
                     <!-- Modal-->
-                    <div v-if="modalVisible" class="modal">
+                    <div
+                      v-if="modalVisible && selectedService === service"
+                      class="modal"
+                    >
                       <div class="modal-content">
                         <h2>Eliminar: {{ service.name }}</h2>
                         <p>¿Estás seguro que queres eliminar este servicio?</p>

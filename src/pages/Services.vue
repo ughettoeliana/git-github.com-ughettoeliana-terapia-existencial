@@ -12,98 +12,62 @@ export default {
   data() {
     return {
       modalVisible: false,
-      panelLoading: true,
+      servicesLoading: true,
       services: [],
+      selectedService: null,
     };
   },
   methods: {
-    showModal() {
+    showModal(service) {
+      this.selectedService = service;
       this.modalVisible = true;
     },
     closeModal() {
       this.modalVisible = false;
+      this.selectedService = null;
     },
   },
   async mounted() {
     this.services = await getServicesData();
-    this.panelLoading = false;
+    this.servicesLoading = false;
   },
 };
 </script>
 
 <template>
-  <div class="service-page">
-    <h1 class="h1">Servicios</h1>
-    <div class="cards-container">
-      <div class="card" v-for="service in services" :key="service.id">
-        <div class="card-body">
-          <h2 class="dark-blue-text">{{ service.name }}</h2>
-          <p>
-            <i class="fa-solid fa-clock" style="color: #21496b"></i>
-            {{ service.time }}
-          </p>
-          <p>$ {{ service.price }}</p>
-          <p class="card-text">
-            Agenda una sesion con el consultor Daniel del Valle
-          </p>
-          <BaseButton @click="showModal" class="btn">Agendar Cita</BaseButton>
-        </div>
-
-        <div v-if="modalVisible" class="modal">
-          <div class="modal-content">
-            
-            <h2>Agendaste la cita: {{ service.name }}</h2>
+  <Loader v-if="servicesLoading" />
+  <template v-else>
+    <div class="service-page">
+      <h1 class="h1">Servicios</h1>
+      <div class="cards-container">
+        <div class="card" v-for="service in services" :key="service.id">
+          <div class="card-body">
+            <h2 class="dark-blue-text">{{ service.name }}</h2>
             <p>
-              Gracias, en breve nos estaremos comunicando con usted para agendar
-              el horario
+              <i class="fa-solid fa-clock" style="color: #21496b"></i>
+              {{ service.time }}
             </p>
-            <button @click="closeModal" class="btn-close">
-              Cerrar
-            </button>
+            <p>$ {{ service.price }}</p>
+            <p class="card-text">
+              Agenda una sesion con el consultor Daniel del Valle
+            </p>
+            <BaseButton @click="showModal(service)" class="btn"
+              >Agendar Cita</BaseButton
+            >
           </div>
-        </div>
 
-        <!-- Modal de boostrap -->
-        <!-- <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
+          <div v-if="modalVisible && selectedService === service" class="modal">
             <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-4" id="exampleModalLabel">
-                  Agendaste la cita: {{ service.name }}
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <p>
-                  Gracias, en breve nos estaremos comunicando con usted para
-                  agendar el horario
-                </p>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-outline-info"
-                  data-bs-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-              </div>
+              <h2>Agendaste la cita: {{ service.name }}</h2>
+              <p>
+                Gracias, en breve nos estaremos comunicando con usted para
+                agendar el horario
+              </p>
+              <button @click="closeModal" class="btn-close">Cerrar</button>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
-  </div>
-  <!-- </div> -->
+  </template>
 </template>

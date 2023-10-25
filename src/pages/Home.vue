@@ -20,7 +20,7 @@ export default {
       <div class="empty-div"></div>
       <div>
         <h1 class="title grey-text">
-          Terapia <span class="blue-text title">Humanistica - Existencial</span>
+          Terapia <span class="blue-text title"> Existencial</span>
         </h1>
       </div>
       <div class="grey-text">
@@ -31,7 +31,7 @@ export default {
         <router-link to="/servicios" class="btn-primary"
           >Agendar una consulta</router-link
         >
-        <p class="">Primera sesion gratis</p>
+        <p class="pl-2">Primera sesion gratis</p>
       </div>
     </div>
   </div>
@@ -56,19 +56,20 @@ export default {
         </div>
       </div>
       <div class="half alig-center">
-        <h3 class="f-1">¿Que es la logoterapia?</h3>
+        <h3 class="f-1">¿Que es el Análisis Existencial?</h3>
         <p class="grey-text">
-          La logoterapia es una forma de psicología existencial que se centra en
-          ayudar a las personas a encontrar sentido y propósito en sus vidas.
-          Desarrollada por el renombrado psiquiatra Viktor Frankl, la
-          logoterapia enfatiza la importancia de descubrir un significado
-          personal como fuerza impulsora para el bienestar psicológico.
+          El Análisis Existencial es una forma de psicología existencial que se
+          centra en ayudar a las personas a encontrar sentido y propósito en sus
+          vidas. Desarrollada por el renombrado psiquiatra Viktor Frankl, la
+          logoterapia y el análisis existencial enfatizan la importancia de
+          descubrir un significado personal como fuerza impulsora para el
+          bienestar psicológico.
         </p>
       </div>
     </div>
     <div class="info-container">
       <div class="half alig-center">
-        <h3 class="f-1">¿Que es la logoterapia?</h3>
+        <h3 class="f-1">Aplicaciones clínicas del análisis existencial</h3>
         <p class="grey-text">
           La logoterapia es una forma de psicología existencial que se centra en
           ayudar a las personas a encontrar sentido y propósito en sus vidas.
@@ -98,7 +99,7 @@ export default {
         </div>
       </div>
       <div class="half alig-center">
-        <h3 class="f-1">¿Que es la logoterapia?</h3>
+        <h3 class="f-1">Fundamentos filosóficos del análisis existencial</h3>
         <p class="grey-text">
           La logoterapia es una forma de psicología existencial que se centra en
           ayudar a las personas a encontrar sentido y propósito en sus vidas.
@@ -119,80 +120,104 @@ export default {
       <div class="blue-card">
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="grey-text">
-          <span class="dark-blue-text">Empathy.</span> We put ourselves in the
-          shoes of our customers to understand their needs.
+          La curiosa paradoja es que cuando me acepto tal como soy, entonces
+          puedo cambiar
         </p>
       </div>
       <div class="blue-card">
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="grey-text">
-          <span class="dark-blue-text">Empathy.</span> We put ourselves in the
-          shoes of our customers to understand their needs.
+          No se trata de sacar el sentimiento de la mente, ni de esconderlo en
+          ella, sino de experimentarlo con aceptación
         </p>
       </div>
       <div class="blue-card">
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="grey-text">
-          <span class="dark-blue-text">Empathy.</span> We put ourselves in the
-          shoes of our customers to understand their needs.
+          Me siento más feliz simplemente por ser yo mismo y dejar que los otros
+          sean ellos mismos.
         </p>
       </div>
     </div>
 
-    <div class="">
-      <div class="profile-card-container">
-        <div class="half">
-          <div>
-            <p class="dark-blue-text blue-frase">
-              "El estado de felicidad se alcanza cuando descubrimos para que
-              existimos"
-            </p>
-            <p class="grey-text">David Daniel del Valle</p>
-          </div>
-        </div>
-        <div class="profile-card half">
-          <div class="img-container">
-            <img
-              src="../../public/profile-img.jpeg"
-              class="img-fluid profile-img"
-            />
-          </div>
-          <p class="dark-blue-text">David Daniel del Valle</p>
-          <p class="grey-text">Director de Terapia Existencial</p>
-          <!-- <p class="">
-            A non-judgmental and compassionate approach to therapy. To create a
-            safe and comfortable environment where you can explore your inner
-            world and develop tools for self-improvement.
-          </p> -->
+    <div class="frase-container">
+      <p class="grey-text fs-3">
+        Una persona, al descubrir que es amada por ser como es, no por lo que pretende ser, sentirá que merece respeto y amor.
+      </p>
+    </div>
+    <div class="profile-card-container">
+      <div class="half">
+        <div>
+          <p class="dark-blue-text blue-frase">
+            "El estado de felicidad se alcanza cuando descubrimos para que
+            existimos"
+          </p>
+          <p class="grey-text">David Daniel del Valle</p>
         </div>
       </div>
+      <div class="profile-card half">
+        <div class="img-container">
+          <img
+            src="../../public/profile-img.jpeg"
+            class="img-fluid profile-img"
+          />
+        </div>
+        <p class="dark-blue-text">Lic. David Daniel del Valle</p>
+        <p class="grey-text">Consultor Psicológico</p>
+      </div>
     </div>
+
     <!-- Seccion de contacto -->
-    <!-- <div>
-      <div class="d-flex justify-content-center text-center my-4 p-5">
-        <h2 class="text-3xl font-bold text-secondary fw-semibold">Contactanos y recibí
-          <span class="blue-text"><br>tu primer consulta gratis</span>
+    <div>
+      <div class="home-form-container">
+        <h2 class="text-center grey-text">
+          Contactanos y recibí
+          <span class="blue-text text-center"
+            ><br />tu primer consulta gratis</span
+          >
         </h2>
       </div>
-      <div class="abs-center w-50 mx-auto my-4">
-        <form action="#" class="p-3  form">
+      <div class="home-form-container">
+        <form action="#" class="form">
           <div class="form-group">
             <BaseLabel for="name">Nombre</BaseLabel>
-            <BaseInput id="name" name="name" type="text" placeholder="Ingresa tu nombre" :disabled="homeLoading" />
+            <BaseInput
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Ingresa tu nombre"
+              :disabled="homeLoading"
+            />
           </div>
-          <div class="form-group mt-3">
+          <div class="form-group">
             <BaseLabel for="email">Email</BaseLabel>
-            <BaseInput id="email" name="email" type="email" placeholder="Ingresa tu email" :disabled="homeLoading" />
+            <BaseInput
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Ingresa tu email"
+              :disabled="homeLoading"
+            />
           </div>
-          <div class="form-group mt-3">
+          <div class="form-group">
             <BaseLabel for="message">Tu mensaje</BaseLabel>
-            <BaseTextarea id="message" placeholder="¿Hay algo que nos quieras contar?" :disabled="homeLoading" />
+            <BaseTextarea
+              id="message"
+              placeholder="¿Hay algo que nos quieras contar?"
+              :disabled="homeLoading"
+            />
           </div>
-
-          <BaseButton :loading="homeLoading" class="my-2"><i class="fa-regular fa-paper-plane pe-2"
-              style="color: #ffffff;"></i>Enviar</BaseButton>
+          <div class="form-group">
+            <BaseButton :loading="homeLoading"
+              ><i
+                class="fa-regular fa-paper-plane pe-2 pr-2"
+                style="color: #ffffff"
+              ></i
+              >Enviar</BaseButton
+            >
+          </div>
         </form>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
