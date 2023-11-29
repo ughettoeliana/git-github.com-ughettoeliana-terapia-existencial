@@ -1,10 +1,12 @@
-<script>
+<!-- <script>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseNavLi from "../components/BaseNavLi.vue";
 import Loader from "../components/Loader.vue";
-import { getServicesData } from "../services/service";
+import { getServicesData, hireService } from "../services/service";
+import { subscribeToAuth } from "../services/auth";
+import { getUserProfileById } from "../services/user";
 
 export default {
   name: "Services",
@@ -15,6 +17,11 @@ export default {
       servicesLoading: true,
       services: [],
       selectedService: null,
+      loggedUser: {},
+      user: {
+        id: null,
+        email: null,
+      },
     };
   },
   methods: {
@@ -26,12 +33,89 @@ export default {
       this.modalVisible = false;
       this.selectedService = null;
     },
+    async handleScheduleAppointment(service) {
+      this.selectedService = service;
+      const userId = this.loggedUser.id;
+      console.log("serviceId", this.selectedService.id);
+      console.log("userId", userId);
+      const success = await hireService(this.selectedService.id, userId);
+      console.log("success", success);
+
+      if (success) {
+        console.log("se constrato el servicio con exito");
+      } else {
+        console.log("hubo un error");
+      }
+    },
   },
   async mounted() {
     this.services = await getServicesData();
     this.servicesLoading = false;
+    subscribeToAuth(async (user) => {
+      this.user = { ...user };
+      this.loggedUser = await getUserProfileById(this.user.id);
+      this.userLoding = false;
+    });
   },
 };
+</script> -->
+<script setup>
+import BaseButton from "../components/BaseButton.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseLabel from "../components/BaseLabel.vue";
+import BaseNavLi from "../components/BaseNavLi.vue";
+import Loader from "../components/Loader.vue";
+import { getServicesData, hireService } from "../services/service";
+import { subscribeToAuth } from "../services/auth";
+import { getUserProfileById } from "../services/user";
+import { onMounted, ref } from "vue";
+
+ const modalVisible= ref(false) ;
+ const servicesLoading=ref(true);
+ const  services= [];
+    const  selectedService= null;
+    const  loggedUser= {};
+    const  user = {
+        id: null,
+        email: null,
+      };
+
+  const  showModal = (service) => {
+      selectedService.value = service;
+      modalVisible.value = true;
+    },
+
+  const  closeModal = () => {
+      modalVisible.value = false;
+      selectedService.value = null;
+    };
+
+  const   handleScheduleAppointment= async (service) => {
+      selectedService.value = service;
+      const selectedServiceId = selectedService.value.id;
+      const userId = loggedUser.value.id;
+      console.log("serviceId", this.selectedService.id);
+      console.log("userId", userId);
+
+      const success = await hireService(selectedServiceId, userId);
+      console.log("success", success);
+
+      if (success) {
+        console.log("se constrato el servicio con exito");
+      } else {
+        console.log("hubo un error");
+      }
+    },
+
+    onMounted(async () => {
+  services.value = await getServicesData();
+  servicesLoading.value = false;
+  
+  subscribeToAuth(async (userData) => {
+    user.value = { ...userData };
+    loggedUser.value = await getUserProfileById(user.value.id);
+  });
+});
 </script>
 
 <template>
@@ -51,7 +135,7 @@ export default {
             <p class="card-text">
               Agenda una sesion con el consultor Daniel del Valle
             </p>
-            <BaseButton @click="showModal(service)" class="btn"
+            <BaseButton @click="handleScheduleAppointment(service)" class="btn"
               >Agendar Cita</BaseButton
             >
           </div>

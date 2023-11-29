@@ -12,7 +12,7 @@ import {} from "../services/chat";
 import { dateToString } from "../helpers/date";
 
 export default {
-  name: "chat",
+  name: "Chat",
   components: { BaseTextarea, BaseButton, Loader },
   data() {
     return {

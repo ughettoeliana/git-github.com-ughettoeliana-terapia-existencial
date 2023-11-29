@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseButton from "../components/BaseButton.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseInput from "../components/BaseInput.vue";
@@ -8,7 +8,7 @@ import PanelAdminNav from "../components/PanelAdminNav.vue";
 import { getUsers } from "../services/user";
 
 export default {
-  name: "Chats",
+  name: "UsersList",
   components: {
     BaseButton,
     BaseLabel,
@@ -46,7 +46,40 @@ export default {
     }
   }
 };
+</script> -->
+<script setup>
+// import BaseButton from "../components/BaseButton.vue";
+// import BaseLabel from "../components/BaseLabel.vue";
+// import BaseInput from "../components/BaseInput.vue";
+// import BaseTextarea from "../components/BaseTextarea.vue";
+// import Loader from "../components/Loader.vue";
+import PanelAdminNav from "../components/PanelAdminNav.vue";
+import { getUsers } from "../services/user";
+import { ref, onMounted, computed } from "vue";
+
+const chatsLoading = ref(true);
+let users = [];
+let filteredUsers = [];
+
+const getUsersData = async () => {
+  users = await getUsers();
+  updateFilteredUsers();
+  chatsLoading.value = false;
+};
+
+const updateFilteredUsers = () => {
+  filteredUsers = filteredUsersList.value;
+};
+
+onMounted(() => {
+  getUsersData();
+});
+
+const filteredUsersList = computed(() => {
+  return users.filter((user) => user.rol === "user");
+});
 </script>
+
 
 <template>
   <h1 class="h1">Usuarios</h1>

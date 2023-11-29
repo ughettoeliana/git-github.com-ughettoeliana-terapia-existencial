@@ -1,8 +1,3 @@
-<script>
-export default {
-  name: 'Loader',
-}
-</script>
 
 <template>
   <div class="">

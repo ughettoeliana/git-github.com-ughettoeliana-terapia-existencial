@@ -1,10 +1,6 @@
-<script>
-export default {
-  name: 'BaseInput',
-  props: ['modelValue'],
-  emits: ['update:modelValue'],
-
-}
+<script setup>
+defineProps(['modelValue'])
+defineEmits(['update:modelValue'])
 </script>
 <template>
   <input  class="form-control" 

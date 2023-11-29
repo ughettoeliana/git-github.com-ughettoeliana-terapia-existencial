@@ -58,12 +58,39 @@ export async function deleteServiceByID(id) {
   }
 }
 
+export async function hireService( serviceId, userId ) {
+  console.log('serviceId', serviceId)
+  console.log('userId', userId)
+  try {
+    const serviceRef = doc(db, "services", serviceId);
+    const serviceDoc = await getDoc(serviceRef);
 
-//funcion del modal
+    if (serviceDoc.exists()) {
+      const hiredService = collection(db, "hiredServices");
+      const hiredServiceData = {
+        userId: userId,
+        serviceId: serviceId,
+        name: serviceDoc.data().name,
+        time: serviceDoc.data().time,
+        price: serviceDoc.data().price,
+        modality: serviceDoc.data().modality,
+      };
 
-
-
-
+      const newService = await addDoc(hiredService, hiredServiceData);
+      console.log(
+        "Servicio contratado con éxito y guardado en Firebase.",
+        newService.id
+      );
+      return true;
+    } else {
+      console.error("El servicio no existe.");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error al contratar el servicio:", error);
+    return false;
+  }
+}
 
 
 

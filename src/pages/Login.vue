@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
@@ -33,6 +33,40 @@ export default {
     },
   },
 };
+</script> -->
+
+<script setup>
+import { ref } from "vue";
+import BaseButton from "../components/BaseButton.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseLabel from "../components/BaseLabel.vue";
+import { login } from "../services/auth";
+import { useRouter } from "vue-router";
+
+
+const router = useRouter();
+
+defineEmits(["logged"]);
+const loginLoading = ref(false);
+const form = ref({
+  email: '',
+  password: ''
+})
+
+const doLogin = async() => {
+  try{
+    loginLoading.value = true
+
+    await login({
+      ...this.form.value,
+    })
+    router.push("/servicios");
+  }catch(error){
+
+  }
+  loginLoading.value = false
+
+}
 </script>
 <template>
   <div class="login-container">
@@ -60,9 +94,7 @@ export default {
           />
         </div>
         <div class="form-group">
-          <BaseButton :loading="loginLoading"
-            >Iniciar Sesion</BaseButton
-          >
+          <BaseButton :loading="loginLoading">Iniciar Sesión</BaseButton>
         </div>
       </form>
     </div>

@@ -1,18 +1,12 @@
-<script>
+<script setup>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
+import { ref } from "vue";
 
-export default {
-  name: "Home",
-  components: { BaseButton, BaseLabel, BaseInput, BaseTextarea },
-  data() {
-    return {
-      homeLoading: false,
-    };
-  },
-};
+const homeLoading = ref(false);
+
 </script>
 <template>
   <div class="bg-image">
@@ -20,7 +14,7 @@ export default {
       <div class="empty-div"></div>
       <div>
         <h1 class="title grey-text">
-          Terapia <span class="blue-text title"> Existencial</span>
+          Terapia <span class="blue-text title"> Humanística</span>
         </h1>
       </div>
       <div class="grey-text">
@@ -31,7 +25,7 @@ export default {
         <router-link to="/servicios" class="btn-primary"
           >Agendar una consulta</router-link
         >
-        <p class="pl-2">Primera sesion gratis</p>
+        <p class="pl-2">Primera sesión gratis</p>
       </div>
     </div>
   </div>
@@ -49,7 +43,7 @@ export default {
       <div class="half">
         <div class="img-container">
           <img
-            src="../../public/positive-img.jpg"
+            src="/positive-img.jpg"
             class="img-fluid"
             alt="una mujer sentada al lado de una flor muy grande"
           />
@@ -81,7 +75,7 @@ export default {
       <div class="half">
         <div class="img-container">
           <img
-            src="../../public/positive-img.jpg"
+            src="/positive-img.jpg"
             class="img-fluid"
             alt="una mujer sentada al lado de una flor muy grande"
           />
@@ -92,7 +86,7 @@ export default {
       <div class="half">
         <div class="img-container">
           <img
-            src="../../public/positive-img.jpg"
+            src="/positive-img.jpg"
             class="img-fluid"
             alt="una mujer sentada al lado de una flor muy grande"
           />
@@ -142,7 +136,8 @@ export default {
 
     <div class="frase-container">
       <p class="grey-text fs-3">
-        Una persona, al descubrir que es amada por ser como es, no por lo que pretende ser, sentirá que merece respeto y amor.
+        Una persona, al descubrir que es amada por ser como es, no por lo que
+        pretende ser, sentirá que merece respeto y amor.
       </p>
     </div>
     <div class="profile-card-container">
@@ -158,8 +153,9 @@ export default {
       <div class="profile-card half">
         <div class="img-container">
           <img
-            src="../../public/profile-img.jpeg"
+            src="/profile-img.jpeg"
             class="img-fluid profile-img"
+            alt="foto de perfil del Licenciado David Daniel del Valle"
           />
         </div>
         <p class="dark-blue-text">Lic. David Daniel del Valle</p>

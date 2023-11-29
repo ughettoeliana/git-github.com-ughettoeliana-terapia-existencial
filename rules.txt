@@ -42,6 +42,7 @@ service cloud.firestore {
       	request.auth != null &&
         request.auth.uid in request.resource.data.users;
         
+        
       match /messages/{message} {
       	allow read: if
         	request.auth != null &&

@@ -1,16 +1,12 @@
-<script>
+<script setup>
 import Loader from './Loader.vue';
 
-export default {
-  name: 'BaseButton',
-  props: {
-    loading: {
+const props = defineProps({
+  loading: {
       type: Boolean,
       default: false,
     }
-  },
-  components:{ Loader },
-}
+})
 </script>
 
 <template>

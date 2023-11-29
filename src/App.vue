@@ -39,7 +39,7 @@ export default {
     <nav class="navbar">
       <div class="logo">
         <div class="logo-container">
-          <img src="../public/logo.svg" alt="Logo" width="30" height="24" />
+          <img src="/logo.svg" alt="Logo" width="30" height="24" />
         </div>
         <a class="" href="/"> Consultoría Psicológica </a>
       </div>
@@ -66,7 +66,7 @@ export default {
         <template v-if="user.id === null">
           <BaseNavLi
             ><router-link to="/iniciar-sesion" class="login-btn"
-              >Iniciar sesion</router-link
+              >Iniciar sesión</router-link
             >
           </BaseNavLi>
           <BaseNavLi
@@ -82,7 +82,7 @@ export default {
           <BaseNavLi>
             <form action="#" @submit.prevent="handleLogout">
               <button class="logout-button">
-                <strong>{{ user.email }}</strong> Cerrar Sesion
+                <strong>{{ user.email }}</strong> Cerrar Sesión
               </button>
             </form>
           </BaseNavLi>

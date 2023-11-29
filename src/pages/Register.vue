@@ -1,8 +1,9 @@
-<script>
+<!-- <script>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import { register } from "../services/auth";
+import { ref } from "firebase/database";
 
 export default {
   name: "Register",
@@ -30,7 +31,35 @@ export default {
     },
   },
 };
+</script> -->
+<script setup>
+import BaseButton from "../components/BaseButton.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseLabel from "../components/BaseLabel.vue";
+import { register } from "../services/auth";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+
+const router = useRouter();
+const registerLoding = ref(false);
+const newUser = ref({
+  email: "",
+  password: "",
+});
+
+const handleRegister = async () => {
+  registerLoding.value = true;
+  try {
+    await register({ ...this.newUser.value });
+    router.push("/servicios");
+  } catch (error) {
+    console.log(error);
+  }
+  registerLoding.value = false;
+};
 </script>
+
 <template>
   <div class="login-container">
     <h1 class="h1">Registrarse</h1>
@@ -57,7 +86,7 @@ export default {
         </BaseInput>
       </div>
       <div class="form-group">
-        <BaseButton :loading="registerLoding" >Crear Cuenta</BaseButton>
+        <BaseButton :loading="registerLoding">Crear Cuenta</BaseButton>
       </div>
     </form>
   </div>

@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
@@ -33,6 +33,36 @@ export default {
     },
   },
 };
+</script> -->
+<script setup>
+import { ref } from "vue";
+import BaseButton from "../components/BaseButton.vue";
+import BaseInput from "../components/BaseInput.vue";
+import BaseLabel from "../components/BaseLabel.vue";
+import BaseNavLi from "../components/BaseNavLi.vue";
+import PanelAdminNav from "../components/PanelAdminNav.vue";
+import { newService } from "../services/service";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const createServiceLoading = ref(false);
+const form = ref({
+        name: "",
+        time: "",
+        modality: "",
+        price: "",
+      },)
+
+      const handleCreateNewService = async ()=>{
+        createServiceLoading.value = true;
+        try {
+          await newService({ ...this.form });
+          router.push("/panel");
+        } catch (error) {
+          console.log(error);
+        }
+        createServiceLoading.value = false;
+      }
 </script>
 <template>
   <div class="create-new-service-page">

@@ -1,10 +1,13 @@
-<script>
+<!-- <script>
 import BaseNavLi from './BaseNavLi.vue';
 
 export default {
   name: "PanelAdminNav",
   components: { BaseNavLi },
 };
+</script> -->
+<script setup>
+import BaseNavLi from './BaseNavLi.vue';
 </script>
 
 <template>
