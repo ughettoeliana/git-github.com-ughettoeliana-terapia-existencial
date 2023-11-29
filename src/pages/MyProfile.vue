@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseNavLi from "../components/BaseNavLi.vue";
@@ -49,27 +49,88 @@ export default {
     });
   },
 };
+</script> -->
+
+<script setup>
+import { ref, onMounted } from "vue";
+import Loader from "../components/Loader.vue";
+import {
+  getUserProfileById,
+  updateUserData,
+} from "../services/user";
+import { subscribeToAuth } from "../services/auth";
+import { getHiredServices } from "../services/service";
+
+const userLoding = ref(true);
+const user = ref({
+  id: null,
+  email: null,
+  rol: null,
+});
+const loggedUser = ref({});
+const editedUser = ref({
+  fullName: "",
+  bio: "",
+});
+const editMode = ref(false);
+const hiredServices = ref([]);
+
+const toggleEditMode = () => {
+  editMode.value = !editMode.value;
+  if (editMode.value) {
+    editedUser.value = { ...loggedUser.value };
+  }
+};
+
+const handleUpdateUser = () => {
+  const userId = loggedUser.value.id;
+  updateUserData(userId, editedUser.value);
+  loggedUser.value.fullName = editedUser.value.fullName;
+  loggedUser.value.bio = editedUser.value.bio;
+  editMode.value = false;
+};
+
+onMounted(async () => {
+  subscribeToAuth(async (userData) => {
+    user.value = { ...userData };
+    loggedUser.value = await getUserProfileById(user.value.id);
+    userLoding.value = false;
+    hiredServices.value = await getHiredServices(user.value.id);
+  });
+});
 </script>
 <template>
   <Loader v-if="userLoding" />
   <template v-else>
     <div class="main-user-info-container">
       <h1 class="h1">
-        Mi perfil <i class="fa-solid fa-user mx-2 my-profile-icon" style="color: #21496b"></i>
+        Mi perfil
+        <i
+          class="fa-solid fa-user mx-2 my-profile-icon"
+          style="color: #21496b"
+        ></i>
       </h1>
       <div class="">
         <div class="main-user-info">
           <p v-if="loggedUser.fullName">
-            Nombre: <span class='bold-text'>{{ loggedUser.fullName }}</span>
+            Nombre: <span class="bold-text">{{ loggedUser.fullName }}</span>
           </p>
-          <p v-if="loggedUser.bio">Biografía: <span class='bold-text'>{{ loggedUser.bio }}</span></p>
+          <p v-if="loggedUser.bio">
+            Biografía: <span class="bold-text">{{ loggedUser.bio }}</span>
+          </p>
         </div>
         <div class="main-user-info">
           <p>
-            Mail: <span class=""> <span class='bold-text'>{{ loggedUser.email }}</span></span>
+            Mail:
+            <span class="">
+              <span class="bold-text">{{ loggedUser.email }}</span></span
+            >
           </p>
           <p>
-            Mi Rol: <span class=""> <span class='bold-text'>{{ loggedUser.rol }}</span></span>
+            Mi Rol:
+            <span class="">
+              <span class="bold-text">{{ loggedUser.rol }}</span></span
+            >
           </p>
         </div>
       </div>
@@ -114,6 +175,21 @@ export default {
         >
           Ir al chat con el admin
         </router-link>
+      </div>
+        <div>
+          <div class="card" v-for="hiredService in hiredServices" :key="hiredService.id">
+          <div class="card-body">
+            <h2 class="dark-blue-text">{{ hiredService.name }}</h2>
+            <p>
+              <i class="fa-solid fa-clock" style="color: #21496b"></i>
+              {{ hiredService.time }}
+            </p>
+            <p>$ {{ hiredService.price }}</p>
+            <p class="card-text">
+              Agendaste una sesión con el consultor Daniel del Valle
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </template>

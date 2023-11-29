@@ -92,7 +92,30 @@ export async function hireService( serviceId, userId ) {
   }
 }
 
+export async function getHiredServices(userId) {
+  try {
+    const hiredServicesRef = collection(db, 'hiredServices');
+    const querySnapshot = await getDocs(hiredServicesRef);
 
+    const hiredServices = [];
+    querySnapshot.forEach((doc) => {
+      hiredServices.push({
+        id: doc.id,
+        userId: doc.data().userId,
+        serviceId: doc.data().serviceId,
+        name: doc.data().name,
+        modality: doc.data().modality,
+        price: doc.data().price,
+        time: doc.data().time
+      });
+    });
+
+    return hiredServices;
+  } catch (error) {
+    console.error('Error al obtener los datos de servicios:', error);
+    return [];
+  }
+}
 
 
 

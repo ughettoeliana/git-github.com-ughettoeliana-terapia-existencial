@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import PanelAdminNav from "../components/PanelAdminNav.vue";
 import Loader from "../components/Loader.vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
@@ -35,6 +35,40 @@ export default {
     },
   },
 };
+</script> -->
+
+<script setup>
+import PanelAdminNav from "../components/PanelAdminNav.vue";
+import Loader from "../components/Loader.vue";
+import { ref, onMounted } from 'vue';
+import { getServicesData, deleteServiceByID } from "../services/service";
+
+const modalVisible = ref(false);
+const panelLoading = ref(true);
+const services = ref([]);
+const selectedService = ref(null);
+
+const showModal = (service) => {
+  selectedService.value = service;
+  modalVisible.value = true;
+};
+
+const closeModal = () => {
+  modalVisible.value = false;
+  selectedService.value = null;
+};
+
+const deleteService = async (id) => {
+  const deleted = await deleteServiceByID(id);
+  if (deleted) {
+    services.value = services.value.filter((service) => service.id !== id);
+  }
+};
+
+onMounted(async () => {
+  services.value = await getServicesData();
+  panelLoading.value = false;
+});
 </script>
 <template>
   <div class="panel-page">

@@ -63,7 +63,7 @@ export default {
 import { ref, onMounted } from 'vue';
 import BaseButton from "../components/BaseButton.vue";
 import Loader from "../components/Loader.vue";
-import { getServicesData, hireService } from "../services/service";
+import { getServicesData, hireService} from "../services/service";
 import { subscribeToAuth } from "../services/auth";
 import { getUserProfileById } from "../services/user";
 
