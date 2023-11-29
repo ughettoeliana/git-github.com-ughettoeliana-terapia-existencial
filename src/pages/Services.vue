@@ -60,59 +60,53 @@ export default {
 };
 </script> -->
 <script setup>
+import { ref, onMounted } from 'vue';
 import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import BaseNavLi from "../components/BaseNavLi.vue";
 import Loader from "../components/Loader.vue";
 import { getServicesData, hireService } from "../services/service";
 import { subscribeToAuth } from "../services/auth";
 import { getUserProfileById } from "../services/user";
-import { onMounted, ref } from "vue";
 
- const modalVisible= ref(false) ;
- const servicesLoading=ref(true);
- const  services= [];
-    const  selectedService= null;
-    const  loggedUser= {};
-    const  user = {
-        id: null,
-        email: null,
-      };
+const modalVisible = ref(false);
+const servicesLoading = ref(true);
+const services = ref([]);
+const selectedService = ref(null);
+const loggedUser = ref({});
+const user = ref({
+  id: null,
+  email: null,
+});
 
-  const  showModal = (service) => {
-      selectedService.value = service;
-      modalVisible.value = true;
-    },
+const showModal = (service) => {
+  selectedService.value = service;
+  modalVisible.value = true;
+};
 
-  const  closeModal = () => {
-      modalVisible.value = false;
-      selectedService.value = null;
-    };
+const closeModal = () => {
+  modalVisible.value = false;
+  selectedService.value = null;
+};
 
-  const   handleScheduleAppointment= async (service) => {
-      selectedService.value = service;
-      const selectedServiceId = selectedService.value.id;
-      const userId = loggedUser.value.id;
-      console.log("serviceId", this.selectedService.id);
-      console.log("userId", userId);
+const handleScheduleAppointment = async (service) => {
+  selectedService.value = service;
+  const userId = loggedUser.value.id;
+  console.log("serviceId", selectedService.value.id);
+  console.log("userId", userId);
+  const success = await hireService(selectedService.value.id, userId);
+  console.log("success", success);
 
-      const success = await hireService(selectedServiceId, userId);
-      console.log("success", success);
+  if (success) {
+    console.log("se contrató el servicio con éxito");
+  } else {
+    console.log("hubo un error");
+  }
+};
 
-      if (success) {
-        console.log("se constrato el servicio con exito");
-      } else {
-        console.log("hubo un error");
-      }
-    },
-
-    onMounted(async () => {
+onMounted(async () => {
   services.value = await getServicesData();
   servicesLoading.value = false;
-  
-  subscribeToAuth(async (userData) => {
-    user.value = { ...userData };
+  subscribeToAuth(async (user) => {
+    user.value = { ...user };
     loggedUser.value = await getUserProfileById(user.value.id);
   });
 });

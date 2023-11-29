@@ -1,8 +1,4 @@
-<script>
-export default {
-  name: "About",
-};
-</script>
+
 <template>
   <div>
     <h1 class="h1">Sobre mi</h1>
