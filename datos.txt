@@ -15,3 +15,6 @@ Usuario del Admin: admin@admin.com
 Contraseña: admin123
 
 **/
+
+
+Hola profe, le aviso que yo hice las reglas de firebase pero la regla para /hiredServices/{document=**}  no me estaba funcionando, asi que por ahora lo deje con la regla que genera firebase al crear la base de datos. Busqué y no encontre la solución para este problema, si usted ve el error y me puede dar una mano le agradeceria mucho. Yo sigo buscando como hacer para solucionarlo de todas formas. Gracias

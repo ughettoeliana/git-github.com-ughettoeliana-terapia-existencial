@@ -152,8 +152,17 @@ onMounted(async () => {
                 {{ hiredService.time }}
               </p>
               <p>$ {{ hiredService.price }}</p>
-              <p>{{ hiredService.appointment.date }}</p>
-              <p>{{ hiredService.appointment.hour  }}</p>
+              <p>
+                Fecha:
+                <span class="font-semibold">{{
+                  hiredService.appointment.date
+                }}</span>
+              </p>
+              <p>
+                Hora: <span class="font-semibold">{{
+                  hiredService.appointment.hour
+                }}</span>
+              </p>
               <p class="py-2">
                 Agendaste una sesión con el consultor Daniel del Valle
               </p>
