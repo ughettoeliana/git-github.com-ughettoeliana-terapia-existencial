@@ -1,6 +1,6 @@
 
 <template>
-  <label class="form-label">
+  <label  class="p-1">
     <slot />
   </label>
 </template>

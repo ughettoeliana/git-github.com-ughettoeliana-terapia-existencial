@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseButton from "./components/BaseButton.vue";
 import BaseNavLi from "./components/BaseNavLi.vue";
 import { subscribeToAuth, logout } from "./services/auth";
@@ -32,56 +32,93 @@ export default {
     });
   },
 };
-</script>
+</script> -->
 
+<script setup>
+import { ref, onMounted } from "vue";
+import BaseButton from "./components/BaseButton.vue";
+import BaseNavLi from "./components/BaseNavLi.vue";
+import { subscribeToAuth, logout } from "./services/auth";
+import { getUserProfileById } from "./services/user";
+
+const user = ref({
+  id: null,
+  email: null,
+  rol: null,
+});
+const loggedUser = ref({});
+
+const handleLogout = () => {
+  logout();
+  $router.push("/iniciar-sesion");
+};
+
+onMounted(async () => {
+  subscribeToAuth(async (userData) => {
+    console.log("Nueva autenticación:", userData);
+    user.value = { ...userData };
+    loggedUser.value = await getUserProfileById(user.value.id);
+    console.log("Usuario logeado:", loggedUser.value);
+  });
+});
+</script>
 <template>
   <header class="header">
-    <nav class="navbar">
-      <div class="logo">
-        <div class="logo-container">
+    <nav class="flex flex-row justify-around items-center">
+      <div class="flex flex-row justify-start">
+        <div class="px-2 text-xl">
           <img src="/logo.svg" alt="Logo" width="30" height="24" />
         </div>
-        <a class="" href="/"> Consultoría Psicológica </a>
+        <a class="text-lg" href="/"> Consultoría Psicológica </a>
       </div>
-      <ul class="nav">
-        <BaseNavLi>
-          <router-link to="/quienes-somos" class="grey-text"
-            >Acerca de nosotros</router-link
-          >
-        </BaseNavLi>
 
-
-        <template v-if="loggedUser.rol === 'admin'">
-          <BaseNavLi
-            ><router-link to="/panel" class="grey-text"
-              >Panel Administrador</router-link
-            >
-          </BaseNavLi>
-        </template>
-        <template v-else-if="loggedUser.rol === 'user'">
+      <ul class="flex flex-row justify-around items-center p-4">
+        <div class="flex flex-row justify-center items-center">
           <BaseNavLi>
-            <router-link to="/perfil" class="grey-text">Mi Perfil</router-link>
+            <router-link to="/quienes-somos" class="text-gray-500"
+              >Acerca de nosotros</router-link
+            >
           </BaseNavLi>
-        </template>
+
+          <template v-if="loggedUser.rol === 'admin'">
+            <BaseNavLi
+              ><router-link to="/panel" class="text-gray-500"
+                >Panel Administrador</router-link
+              >
+            </BaseNavLi>
+          </template>
+          <template v-else-if="loggedUser.rol === 'user'">
+            <BaseNavLi>
+              <router-link to="/perfil" class="text-gray-500"
+                >Mi Perfil</router-link
+              >
+            </BaseNavLi>
+          </template>
+        </div>
+
         <template v-if="user.id === null">
-          <BaseNavLi
-            ><router-link to="/iniciar-sesion" class="login-btn"
-              >Iniciar sesión</router-link
-            >
-          </BaseNavLi>
-          <BaseNavLi
-            ><router-link to="/registro" class="register-btn"
-              >Registro</router-link
-            >
-          </BaseNavLi>
+          
+            <BaseNavLi
+              ><router-link to="/iniciar-sesion" class="login-btn"
+                >Iniciar sesión</router-link
+              >
+            </BaseNavLi>
+            <BaseNavLi
+              ><router-link to="/registro" class="register-btn"
+                >Registro</router-link
+              >
+            </BaseNavLi>
+          
         </template>
         <template v-else>
           <BaseNavLi>
-          <router-link to="/servicios" class="grey-text">Servicios</router-link>
-        </BaseNavLi>
+            <router-link to="/servicios" class="text-gray-500"
+              >Servicios</router-link
+            >
+          </BaseNavLi>
           <BaseNavLi>
             <form action="#" @submit.prevent="handleLogout">
-              <button class="logout-button">
+              <button class="text-white bg-black p-2 rounded-lg">
                 <strong>{{ user.email }}</strong> Cerrar Sesión
               </button>
             </form>
@@ -90,29 +127,29 @@ export default {
       </ul>
     </nav>
   </header>
-  <div class="content">
-    <div>
+  <div>
+    <div class="max-w-1200 mx-auto">
       <router-view> </router-view>
     </div>
   </div>
-  <footer class="footer">
-    <div class="footer-columns">
-      <div class="footer-column">
-        <h5 class="footer-heading">Diseño y Programación Web</h5>
-        <p><a  class="grey-text">Profesor: Santiago Gallino</a></p>
-        <p><a class="grey-text">Cliente Web Mobile</a></p>
-        <p><a class="grey-text">4 Cuatrimestre</a></p>
+  <footer class="">
+    <div class="flex justify-around text-lg bg-gray-100 p-10 mt-5">
+      <div class=" p-4">
+        <h5 class="font-semibold">Diseño y Programación Web</h5>
+        <p><a class="text-gray-500">Profesor: Santiago Gallino</a></p>
+        <p><a class="text-gray-500">Cliente Web Mobile</a></p>
+        <p><a class="text-gray-500">4 Cuatrimestre</a></p>
       </div>
-      <div class="footer-column">
-        <h5 class="footer-heading">Davinci</h5>
-        <p><a class="grey-text">Turno Noche</a></p>
-        <p><a class="grey-text">Comision B</a></p>
-        <p><a class="grey-text">1er Parcial</a></p>
+      <div class=" p-4">
+        <h5 class="font-semibold">Davinci</h5>
+        <p><a class="text-gray-500">Turno Noche</a></p>
+        <p><a class="text-gray-500">Comision B</a></p>
+        <p><a class="text-gray-500">1er Parcial</a></p>
       </div>
-      <div class="footer-column">
-        <h5 class="footer-heading">Alumna</h5>
-        <p><a class="grey-text">Eliana Ughetto</a></p>
-        <p><a class="grey-text">21 años</a></p>
+      <div class=" p-4">
+        <h5 class="font-semibold">Alumna</h5>
+        <p><a class="text-gray-500">Eliana Ughetto</a></p>
+        <p><a class="text-gray-500">21 años</a></p>
       </div>
     </div>
   </footer>

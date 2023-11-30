@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button class="btn btn-primary " type="submit"
+  <button class="text-white bg-primary rounded-lg p-2 " type="submit"
     :disabled="loading">
     
     <template v-if="!loading">

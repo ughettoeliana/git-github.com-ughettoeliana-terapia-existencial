@@ -60,10 +60,10 @@ export default {
 };
 </script> -->
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import Loader from "../components/Loader.vue";
-import { getServicesData, hireService} from "../services/service";
+import { getServicesData, hireService } from "../services/service";
 import { subscribeToAuth } from "../services/auth";
 import { getUserProfileById } from "../services/user";
 
@@ -90,6 +90,7 @@ const closeModal = () => {
 const handleScheduleAppointment = async (service) => {
   selectedService.value = service;
   const userId = loggedUser.value.id;
+  modalVisible.value = false;
   console.log("serviceId", selectedService.value.id);
   console.log("userId", userId);
   const success = await hireService(selectedService.value.id, userId);
@@ -115,33 +116,55 @@ onMounted(async () => {
 <template>
   <Loader v-if="servicesLoading" />
   <template v-else>
-    <div class="service-page">
-      <h1 class="h1">Servicios</h1>
-      <div class="cards-container">
-        <div class="card" v-for="service in services" :key="service.id">
-          <div class="card-body">
-            <h2 class="dark-blue-text">{{ service.name }}</h2>
-            <p>
-              <i class="fa-solid fa-clock" style="color: #21496b"></i>
-              {{ service.time }}
-            </p>
-            <p>$ {{ service.price }}</p>
-            <p class="card-text">
-              Agenda una sesion con el consultor Daniel del Valle
-            </p>
-            <BaseButton @click="handleScheduleAppointment(service)" class="btn"
-              >Agendar Cita</BaseButton
-            >
-          </div>
+    <div class="">
+      <h1 class="text-3xl text-center">Servicios</h1>
+      <div
+        class="flex justify-center items-center container mx-auto min-h-screen"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div
+            class="p-5 flex flex-col"
+            v-for="service in services"
+            :key="service.id"
+          >
+            <div class="rounded-xl shadow p-5">
+              <div class="card-body">
+                <h2 class="text-darkBlue text-xl font-semibold">
+                  {{ service.name }}
+                </h2>
+                <p>
+                  <i class="fa-solid fa-clock" style="color: #21496b"></i>
+                  {{ service.time }}
+                </p>
+                <p>$ {{ service.price }}</p>
+                <p class="py-2">
+                  Agenda una sesion con el consultor Daniel del Valle
+                </p>
+                <BaseButton @click="showModal(service)" class="btn"
+                  >Agendar Cita</BaseButton
+                >
+              </div>
 
-          <div v-if="modalVisible && selectedService === service" class="modal">
-            <div class="modal-content">
-              <h2>Agendaste la cita: {{ service.name }}</h2>
-              <p>
-                Gracias, en breve nos estaremos comunicando con usted para
-                agendar el horario
-              </p>
-              <button @click="closeModal" class="btn-close">Cerrar</button>
+              <div
+                v-if="modalVisible && selectedService === service"
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+              >
+                <div class="bg-white p-8 rounded max-w-md text-xl">
+                  <div class="py-3">
+                    <h2>¿Estás seguro que querés agendar esta cita?</h2>
+                    <h3 class="text-darkBlue font-semibold py-4">{{ service.name }}</h3>
+                  </div>
+                  <button @click="closeModal" class="rounded-lg p-2 m-2 bg-gray-200">
+                    Cancelar
+                  </button>
+                  <button
+                    @click="handleScheduleAppointment(service)"
+                    class="rounded-lg p-2 bg-primary text-white"
+                  >
+                    Sí, estoy seguro
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

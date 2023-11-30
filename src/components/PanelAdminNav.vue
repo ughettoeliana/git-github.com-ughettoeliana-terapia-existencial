@@ -11,26 +11,26 @@ import BaseNavLi from './BaseNavLi.vue';
 </script>
 
 <template>
-  <div class="navbar">
-    <ul class="nav">
+  <div class="flex flex-row justify-around items-center">
+    <ul class="">
       <BaseNavLi
         ><router-link
           to="/panel"
-          class="grey-text"
+          class=""
           >Servicios</router-link
         >
       </BaseNavLi>
       <BaseNavLi
         ><router-link
           to="/create-service"
-          class="grey-text"
+          class=""
           >Crear un nuevo servicio</router-link
         >
       </BaseNavLi>
       <BaseNavLi>
         <router-link
           to="/users-list"
-          class="grey-text"
+          class=""
           >Chats</router-link
         >
       </BaseNavLi>
