@@ -159,7 +159,8 @@ onMounted(async () => {
                 }}</span>
               </p>
               <p>
-                Hora: <span class="font-semibold">{{
+                Hora:
+                <span class="font-semibold">{{
                   hiredService.appointment.hour
                 }}</span>
               </p>

@@ -1,5 +1,5 @@
 <script setup>
-import '../css/styles.css'
+import "../css/styles.css";
 import { ref, onMounted, onUnmounted } from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
@@ -80,7 +80,6 @@ onUnmounted(() => {
             <div
               v-for="message in messages"
               :key="message.id"
-              
               class="flex flex-col rounded-xl p-2"
               :class="{
                 'bg-lightBlue': message.senderId !== authUser.id,
@@ -89,7 +88,7 @@ onUnmounted(() => {
                 'self-end': message.senderId === authUser.id,
               }"
             >
-              <div class="max-width-8" >{{ message.message }}</div>
+              <div class="max-width-8">{{ message.message }}</div>
               <div class="text-xs text-greyText">
                 {{ formatDate(message.created_at) || "Enviando..." }}
               </div>

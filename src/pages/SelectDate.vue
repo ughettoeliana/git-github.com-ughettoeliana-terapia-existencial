@@ -68,7 +68,7 @@ const confirmAppointment = async () => {
         message: "Se agendó la cita con éxito. Muchas gracias",
         type: "success",
       };
-      router.push('/perfil')
+      router.push("/perfil");
     } else {
       notification.value = {
         message: "No se pudo agendar la cita. Intentalo de nuevo más tarde",
@@ -138,7 +138,14 @@ const confirmAppointment = async () => {
       </div>
     </div>
   </div>
-  <div class="flex justify-around items-center max-w-lg text-center p-2 mx-auto text-md" v-if="notification.message != null" :class="{ 'text-green-500 bg-green-200 rounded-xl': notification.type === 'success', 'text-red-500 bg-red-200 rounded-xl': notification.type === 'error' }">
+  <div
+    class="flex justify-around items-center max-w-lg text-center p-2 mx-auto text-md"
+    v-if="notification.message != null"
+    :class="{
+      'text-green-500 bg-green-200 rounded-xl': notification.type === 'success',
+      'text-red-500 bg-red-200 rounded-xl': notification.type === 'error',
+    }"
+  >
     {{ notification.message }}
   </div>
 </template>

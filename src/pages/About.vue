@@ -2,7 +2,9 @@
   <div class="max-h-screen max-w-4xl mx-auto mb-10">
     <h1 class="text-3xl text-center font-medium my-5">Sobre mí</h1>
     <div class="">
-      <h2 class="text-2xl font-medium">¡Bienvenido a la página de David Del Valle Buljubasich!</h2>
+      <h2 class="text-2xl font-medium">
+        ¡Bienvenido a la página de David Del Valle Buljubasich!
+      </h2>
       <h3 class="text-1xl font-medium mt-4 mb-1">Experiencia</h3>
       <p class="text-greyText">
         David Del Valle Buljubasich es un Licenciado y Consultor Psicológico con

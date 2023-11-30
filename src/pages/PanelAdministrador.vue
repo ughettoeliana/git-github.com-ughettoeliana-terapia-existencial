@@ -93,7 +93,6 @@ onMounted(async () => {
                       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                     >
                       <div class="bg-white p-8 rounded max-w-md text-xl">
-                       
                         <h2 class="">
                           Eliminar:
                           <span class="text-red-500 font-medium">{{

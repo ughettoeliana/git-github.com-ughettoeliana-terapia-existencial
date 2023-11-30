@@ -11,22 +11,22 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const createServiceLoading = ref(false);
 const form = ref({
-        name: "",
-        time: "",
-        modality: "",
-        price: "",
-      },)
+  name: "",
+  time: "",
+  modality: "",
+  price: "",
+});
 
-      const handleCreateNewService = async ()=>{
-        createServiceLoading.value = true;
-        try {
-          await newService({ ...form.value });
-          router.push("/panel");
-        } catch (error) {
-          console.log(error);
-        }
-        createServiceLoading.value = false;
-      }
+const handleCreateNewService = async () => {
+  createServiceLoading.value = true;
+  try {
+    await newService({ ...form.value });
+    router.push("/panel");
+  } catch (error) {
+    console.log(error);
+  }
+  createServiceLoading.value = false;
+};
 </script>
 <template>
   <div class="flex flex-col justify-center items-center">
@@ -56,7 +56,7 @@ const form = ref({
               v-model="form.time"
               :disabled="createServiceLoading"
               required
-              class=" mr-5"
+              class="mr-5"
             />
           </div>
           <div class="flex flex-col">

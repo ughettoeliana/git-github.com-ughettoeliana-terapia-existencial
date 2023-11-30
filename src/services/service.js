@@ -115,7 +115,7 @@ export async function getHiredServices(userId) {
         appointment: {
           date: doc.data().appointment.date,
           hour: doc.data().appointment.hour,
-        }
+        },
       });
     });
 

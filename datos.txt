@@ -1,7 +1,7 @@
 Carrera: Diseño y Programacion Web;
 Materia: Cliente Web Mobile;
 Docente: Santiago Gallino;
-Entrega: 1er Parcial
+Entrega: 2do Parcial
 Cuatrimestre: 4
 Año: 2023
 Turno: Noche

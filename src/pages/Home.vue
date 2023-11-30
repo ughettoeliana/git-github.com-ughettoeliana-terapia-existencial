@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import '../css/styles.css'
+import "../css/styles.css";
 
 const homeLoading = ref(false);
 </script>

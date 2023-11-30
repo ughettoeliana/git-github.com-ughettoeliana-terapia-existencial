@@ -6,7 +6,6 @@ import { register } from "../services/auth";
 import { inject, ref } from "vue";
 import { useRouter } from "vue-router";
 
-
 const router = useRouter();
 const registerLoding = ref(false);
 const newUser = ref({
@@ -19,9 +18,9 @@ const handleRegister = async () => {
   try {
     await register({ ...newUser.value });
     setNotification({
-      message: 'Te creaste una cuenta con éxito. Bienvenid@',
-      type: 'success',
-    })
+      message: "Te creaste una cuenta con éxito. Bienvenid@",
+      type: "success",
+    });
 
     router.push("/servicios");
   } catch (error) {
@@ -32,7 +31,9 @@ const handleRegister = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center shadow-lg py-8 max-w-sm mx-auto my-20 rounded-lg">
+  <div
+    class="flex flex-col justify-center items-center shadow-lg py-8 max-w-sm mx-auto my-20 rounded-lg"
+  >
     <div class="login-container">
       <h1 class="text-3xl font-medium p-3">Registrarse</h1>
       <form action="#" @submit.prevent="handleRegister" class="form">
@@ -58,7 +59,9 @@ const handleRegister = async () => {
           </BaseInput>
         </div>
         <div class="my-5">
-          <BaseButton :loading="registerLoding" class="w-full">Crear Cuenta</BaseButton>
+          <BaseButton :loading="registerLoding" class="w-full"
+            >Crear Cuenta</BaseButton
+          >
         </div>
       </form>
     </div>
