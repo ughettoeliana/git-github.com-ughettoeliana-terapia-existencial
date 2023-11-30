@@ -1,4 +1,5 @@
 <script setup>
+import '../css/styles.css'
 import { ref, onMounted, onUnmounted } from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
@@ -88,7 +89,7 @@ onUnmounted(() => {
                 'self-end': message.senderId === authUser.id,
               }"
             >
-              <div style="max-width: 8rem" >{{ message.message }}</div>
+              <div class="max-width-8" >{{ message.message }}</div>
               <div class="text-xs text-greyText">
                 {{ formatDate(message.created_at) || "Enviando..." }}
               </div>
