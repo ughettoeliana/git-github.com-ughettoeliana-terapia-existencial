@@ -39,7 +39,7 @@ const homeLoading = ref(false);
   <div class="">
     <div class="text-center text-4xl p-4">
       <h2 class="text-greyText">
-        Un abordaje logoterapeutico
+        Un abordaje logoterapéutico
         <span class="text-primary"><br />para tu salud mental</span>
       </h2>
     </div>
@@ -55,7 +55,7 @@ const homeLoading = ref(false);
       </div>
       <div class="max-w-md flex flex-col">
         <h3 class="text-2xl font-semibold py-4">
-          ¿Que es el Análisis Existencial?
+          ¿Qué es el Análisis Existencial?
         </h3>
         <p class="text-greyText">
           El Análisis Existencial es una forma de psicología existencial que
@@ -168,7 +168,7 @@ const homeLoading = ref(false);
       <div class="">
         <div class="max-w-lg">
           <p class="text-darkBlue text-3xl italic">
-            "El estado de felicidad se alcanza cuando descubrimos para que
+            "El estado de felicidad se alcanza cuando descubrimos para qué
             existimos"
           </p>
           <p class="text-greyText">David Daniel del Valle</p>
@@ -191,7 +191,7 @@ const homeLoading = ref(false);
     <div>
       <div class="text-4xl my-16">
         <h2 class="text-center text-greyText font-medium">
-          Contactanos y recibí
+          Contáctanos y recibí
           <span class="text-primary text-center"
             ><br />tu primer consulta gratis</span
           >

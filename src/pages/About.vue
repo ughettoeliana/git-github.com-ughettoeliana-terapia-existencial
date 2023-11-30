@@ -1,6 +1,6 @@
 <template>
   <div class="max-h-screen max-w-4xl mx-auto mb-10">
-    <h1 class="text-3xl text-center font-medium my-5">Sobre mi</h1>
+    <h1 class="text-3xl text-center font-medium my-5">Sobre mí</h1>
     <div class="">
       <h2 class="text-2xl font-medium">¡Bienvenido a la página de David Del Valle Buljubasich!</h2>
       <h3 class="text-1xl font-medium mt-4 mb-1">Experiencia</h3>
@@ -11,7 +11,7 @@
         emocional y la salud mental de las personas lo han convertido en un
         referente en su área.
       </p>
-      <h3 class="text-1xl font-medium mt-4 mb-1">Formacion Académica</h3>
+      <h3 class="text-1xl font-medium mt-4 mb-1">Formación Académica</h3>
       <p class="text-greyText">
         El Licenciado Buljubasich cursó su Licenciatura en Teología en la
         Universidad de Artes y Psicología (UAP), donde adquirió una base sólida
@@ -27,7 +27,7 @@
         Universidad Católica Argentina, ubicada en el prestigioso barrio de
         Puerto Madero.
       </p>
-      <h3 class="text-1xl font-medium mt-4 mb-1">Enfoque Profecional</h3>
+      <h3 class="text-1xl font-medium mt-4 mb-1">Enfoque Profesional</h3>
       <p class="text-greyText">
         Actualmente, David se desempeña tanto como pastor como consultor
         psicológico en la hermosa ciudad de Mendoza. Su enfoque integral en la

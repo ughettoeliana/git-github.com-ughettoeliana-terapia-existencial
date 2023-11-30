@@ -124,7 +124,7 @@ onMounted(async () => {
       <div class="p-4">
         <h5 class="font-semibold">Davinci</h5>
         <p><a class="text-gray-500">Turno Noche</a></p>
-        <p><a class="text-gray-500">Comision B</a></p>
+        <p><a class="text-gray-500">Comisión B</a></p>
         <p><a class="text-gray-500">2do Parcial</a></p>
       </div>
       <div class="p-4">
