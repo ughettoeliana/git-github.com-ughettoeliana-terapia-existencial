@@ -70,7 +70,7 @@ onUnmounted(() => {
       Chat con <span class="font-semibold"> {{ user.email }}</span>
     </h1>
     <div
-      class="max-w-1200 flex flex-col justify-center items-center p-4 max-w-sm mx-auto my-20 rounded-lg border border-solid border-slate-200"
+      class="max-w-1200 flex flex-col justify-center p-4 max-w-sm mx-auto my-20 rounded-lg border border-solid border-slate-200"
     >
       <div class="my-10">
         <Loader v-if="messagesLoading" />
@@ -79,15 +79,16 @@ onUnmounted(() => {
             <div
               v-for="message in messages"
               :key="message.id"
-              class="rounded-xl p-2"
+              
+              class="flex flex-col rounded-xl p-2"
               :class="{
                 'bg-lightBlue': message.senderId !== authUser.id,
                 'bg-blueBorder': message.senderId === authUser.id,
-                'items-start': message.senderId !== authUser.id,
-                'items-end': message.senderId === authUser.id,
+                'self-start': message.senderId !== authUser.id,
+                'self-end': message.senderId === authUser.id,
               }"
             >
-              <div class="">{{ message.message }}</div>
+              <div style="max-width: 8rem" >{{ message.message }}</div>
               <div class="text-xs text-greyText">
                 {{ formatDate(message.created_at) || "Enviando..." }}
               </div>
@@ -97,7 +98,7 @@ onUnmounted(() => {
       </div>
       <form action="#" @submit.prevent="handleSendMessage" class="">
         <div class="flex">
-          <div class="">
+          <div class="flex-1">
             <BaseTextarea
               id="message"
               class="max-h-10"
