@@ -1,9 +1,16 @@
 import { db } from "./firebase";
-import { collection, addDoc, getDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 export async function newService({ name, time, modality, price }) {
   try {
-    const serviceRef = collection(db, 'services');
+    const serviceRef = collection(db, "services");
 
     // Define los datos del servicio
     const serviceData = {
@@ -15,15 +22,14 @@ export async function newService({ name, time, modality, price }) {
 
     // Guarda los datos en la colección de servicios
     const newService = await addDoc(serviceRef, serviceData);
-
   } catch (error) {
-    console.error('Error al guardar el servicio:', error);
+    console.error("Error al guardar el servicio:", error);
   }
 }
 
 export async function getServicesData() {
   try {
-    const servicesRef = collection(db, 'services');
+    const servicesRef = collection(db, "services");
     const querySnapshot = await getDocs(servicesRef);
 
     const services = [];
@@ -33,30 +39,52 @@ export async function getServicesData() {
         name: doc.data().name,
         modality: doc.data().modality,
         price: doc.data().price,
-        time: doc.data().time
+        time: doc.data().time,
       });
     });
 
     return services;
   } catch (error) {
-    console.error('Error al obtener los datos de servicios:', error);
+    console.error("Error al obtener los datos de servicios:", error);
     return [];
   }
 }
 
-
-export async function deleteServiceByID(id) {
+export async function getServicesDataById(id) {
   try {
-    const serviceRef = doc(db, 'services', id);
-    await deleteDoc(serviceRef);
-    return true; 
+    const serviceRef = doc(db, "services", id);
+    const serviceDoc = await getDoc(serviceRef);
+
+    const service = {
+      name: serviceRef.data().name,
+    };
+
+    console.log("service.name", service.name);
+    //return true;
   } catch (error) {
-    console.error('Error al eliminar el servicio:', error);
-    return false; 
+    console.error("Error al eliminar el servicio:", error);
+    return false;
   }
 }
 
-export async function hireService( serviceId, userId ) {
+export async function deleteServiceByID(id) {
+  try {
+    const serviceRef = doc(db, "services", id);
+    await deleteDoc(serviceRef);
+    return true;
+  } catch (error) {
+    console.error("Error al eliminar el servicio:", error);
+    return false;
+  }
+}
+
+export async function hireService(
+  serviceId,
+  userId,
+  appointmentDateAndHour = {}
+) {
+  console.log("serviceId", serviceId);
+  console.log("userId", userId);
   try {
     const serviceRef = doc(db, "services", serviceId);
     const serviceDoc = await getDoc(serviceRef);
@@ -70,6 +98,10 @@ export async function hireService( serviceId, userId ) {
         time: serviceDoc.data().time,
         price: serviceDoc.data().price,
         modality: serviceDoc.data().modality,
+        appointment: {
+          date: appointmentDateAndHour.date,
+          hour: appointmentDateAndHour.hour,
+        },
       };
 
       const newService = await addDoc(hiredService, hiredServiceData);
@@ -90,7 +122,7 @@ export async function hireService( serviceId, userId ) {
 
 export async function getHiredServices(userId) {
   try {
-    const hiredServicesRef = collection(db, 'hiredServices');
+    const hiredServicesRef = collection(db, "hiredServices");
     const querySnapshot = await getDocs(hiredServicesRef);
 
     const hiredServices = [];
@@ -102,17 +134,13 @@ export async function getHiredServices(userId) {
         name: doc.data().name,
         modality: doc.data().modality,
         price: doc.data().price,
-        time: doc.data().time
+        time: doc.data().time,
       });
     });
 
     return hiredServices;
   } catch (error) {
-    console.error('Error al obtener los datos de servicios:', error);
+    console.error("Error al obtener los datos de servicios:", error);
     return [];
   }
 }
-
-
-
-

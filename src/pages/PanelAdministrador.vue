@@ -3,7 +3,6 @@ import PanelAdminNav from "../components/PanelAdminNav.vue";
 import Loader from "../components/Loader.vue";
 import { ref, onMounted } from "vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
-import { Delete } from "@element-plus/icons-vue";
 
 const deletingService = ref(false);
 const modalVisible = ref(false);

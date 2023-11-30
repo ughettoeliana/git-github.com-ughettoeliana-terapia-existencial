@@ -22,9 +22,8 @@
     "@vitejs/plugin-vue": "^4.4.0",
     "element-plus": "^2.4.3",
     "firebase": "^10.4.0",
+    "v-calendar": "^3.1.2",
     "vue": "^3.3.4",
-    "vue-calendar-component": "^2.8.2",
-    "vue-full-calendar": "^2.8.1-0",
     "vue-router": "^4.2.5"
   }
 }

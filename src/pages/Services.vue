@@ -29,10 +29,16 @@ const closeModal = () => {
 };
 
 const handleScheduleAppointment = async (service) => {
+  const userId = loggedUser.value.id;
+
   router.push({
     path: "/servicios/seleccionar-fecha",
-    query: { serviceId: JSON.stringify(service.id) },
-  });};
+    query: {
+      serviceId: JSON.stringify(service.id),
+      userId: JSON.stringify(userId),
+    },
+  });
+};
 
 onMounted(async () => {
   services.value = await getServicesData();

@@ -1,19 +1,22 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import BaseButton from "../components/BaseButton.vue";
-import { hireService } from "../services/service";
+import { subscribeToAuth } from "../services/auth";
+import { getServicesDataById, hireService } from "../services/service";
 import { useRouter } from "vue-router";
+import { getUserProfileById } from "../services/user";
 
 const dateValue = ref(new Date());
 const hourValue = ref("");
 const modalVisible = ref(false);
-const appointmentDateAndHour = ref({});
-const selectedService = ref(null);
-const loggedUser = ref({});
+const appointmentDateAndHour = ref({
+  date: null as string | null,
+  hour: null as string | null,
+});
+
 const router = useRouter();
 
 const showModal = () => {
-  // Establecer la fecha y la hora en el objeto appointmentDateAndHour
   appointmentDateAndHour.value = {
     date: formattedDate.value,
     hour: hourValue.value,
@@ -25,7 +28,10 @@ const showModal = () => {
 
 const closeModal = () => {
   modalVisible.value = false;
-  appointmentDateAndHour.value = {};
+  appointmentDateAndHour.value = {
+    date: null as string | null,
+    hour: null as string | null,
+  };
 };
 
 const handleDateSelect = () => {
@@ -38,15 +44,23 @@ const handleTimeChange = () => {
 
 const formattedDate = computed(() => {
   const options = { year: "numeric", month: "long", day: "numeric" };
-  return dateValue.value.toLocaleDateString("es-ES", options);
+  return dateValue.value.toLocaleDateString("es-ES");
 });
 
 const confirmAppointment = async () => {
-  const { service } = router.currentRoute.value.query;
-  selectedService.value = JSON.parse(service);
-  const userId = loggedUser.value.id;
+  let serviceId = router.currentRoute.value.query.serviceId;
+  let userId = router.currentRoute.value.query.userId;
+
+  // Eliminar comillas de los ids
+  serviceId = (serviceId as string)?.replace(/['"]+/g, '') || null;
+  userId = (userId as string)?.replace(/['"]+/g, '') || null;
+
+  console.log("serviceId", serviceId);
+  console.log("userId", userId);
+
   modalVisible.value = false;
-  const success = await hireService(selectedService.value.id, userId);
+  const success = await hireService(serviceId, userId, appointmentDateAndHour.value);
+  console.log(success);
 
   if (success) {
     console.log("se contrató el servicio con éxito");
@@ -89,7 +103,7 @@ const confirmAppointment = async () => {
   <div class="max-w-2xl tex-center mx-auto py-5">
     <BaseButton @click.stop="showModal" class="w-full">Continuar</BaseButton>
   </div>
-  <!-- Modal-->
+
   <div
     v-if="modalVisible && appointmentDateAndHour"
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
@@ -111,7 +125,7 @@ const confirmAppointment = async () => {
         >
           Cerrar
         </button>
-        <!-- Cambia el evento a un método válido -->
+
         <button
           class="rounded-lg p-2 bg-primary text-white"
           @click="confirmAppointment"
