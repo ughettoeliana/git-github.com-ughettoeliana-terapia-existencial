@@ -1,64 +1,3 @@
-<!-- <script>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import BaseNavLi from "../components/BaseNavLi.vue";
-import Loader from "../components/Loader.vue";
-import { getServicesData, hireService } from "../services/service";
-import { subscribeToAuth } from "../services/auth";
-import { getUserProfileById } from "../services/user";
-
-export default {
-  name: "Services",
-  components: { BaseButton, BaseLabel, BaseInput, BaseNavLi, Loader },
-  data() {
-    return {
-      modalVisible: false,
-      servicesLoading: true,
-      services: [],
-      selectedService: null,
-      loggedUser: {},
-      user: {
-        id: null,
-        email: null,
-      },
-    };
-  },
-  methods: {
-    showModal(service) {
-      this.selectedService = service;
-      this.modalVisible = true;
-    },
-    closeModal() {
-      this.modalVisible = false;
-      this.selectedService = null;
-    },
-    async handleScheduleAppointment(service) {
-      this.selectedService = service;
-      const userId = this.loggedUser.id;
-      console.log("serviceId", this.selectedService.id);
-      console.log("userId", userId);
-      const success = await hireService(this.selectedService.id, userId);
-      console.log("success", success);
-
-      if (success) {
-        console.log("se constrato el servicio con exito");
-      } else {
-        console.log("hubo un error");
-      }
-    },
-  },
-  async mounted() {
-    this.services = await getServicesData();
-    this.servicesLoading = false;
-    subscribeToAuth(async (user) => {
-      this.user = { ...user };
-      this.loggedUser = await getUserProfileById(this.user.id);
-      this.userLoding = false;
-    });
-  },
-};
-</script> -->
 <script setup>
 import { ref, onMounted } from "vue";
 import BaseButton from "../components/BaseButton.vue";
@@ -66,7 +5,9 @@ import Loader from "../components/Loader.vue";
 import { getServicesData, hireService } from "../services/service";
 import { subscribeToAuth } from "../services/auth";
 import { getUserProfileById } from "../services/user";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const modalVisible = ref(false);
 const servicesLoading = ref(true);
 const services = ref([]);
@@ -88,17 +29,10 @@ const closeModal = () => {
 };
 
 const handleScheduleAppointment = async (service) => {
-  selectedService.value = service;
-  const userId = loggedUser.value.id;
-  modalVisible.value = false;
-  const success = await hireService(selectedService.value.id, userId);
-
-  if (success) {
-    console.log("se contrató el servicio con éxito");
-  } else {
-    console.log("hubo un error");
-  }
-};
+  router.push({
+    path: "/servicios/seleccionar-fecha",
+    query: { serviceId: JSON.stringify(service.id) },
+  });};
 
 onMounted(async () => {
   services.value = await getServicesData();
@@ -124,7 +58,7 @@ onMounted(async () => {
             v-for="service in services"
             :key="service.id"
           >
-            <div class="rounded-xl  border border-solid border-slate-200 p-5">
+            <div class="rounded-xl border border-solid border-slate-200 p-5">
               <div class="">
                 <h2 class="text-darkBlue text-xl font-semibold">
                   {{ service.name }}
@@ -137,7 +71,9 @@ onMounted(async () => {
                 <p class="py-2">
                   Agenda una sesion con el consultor Daniel del Valle
                 </p>
-                <BaseButton @click="showModal(service)" class="btn"
+                <BaseButton
+                  @click="handleScheduleAppointment(service)"
+                  class="btn"
                   >Agendar Cita</BaseButton
                 >
               </div>
@@ -149,9 +85,14 @@ onMounted(async () => {
                 <div class="bg-white p-8 rounded max-w-md text-xl">
                   <div class="py-3">
                     <h2>¿Estás seguro que querés agendar esta cita?</h2>
-                    <h3 class="text-darkBlue font-semibold py-4">{{ service.name }}</h3>
+                    <h3 class="text-darkBlue font-semibold py-4">
+                      {{ service.name }}
+                    </h3>
                   </div>
-                  <button @click="closeModal" class="rounded-lg p-2 m-2 bg-gray-200">
+                  <button
+                    @click="closeModal"
+                    class="rounded-lg p-2 m-2 bg-gray-200"
+                  >
                     Cancelar
                   </button>
                   <button

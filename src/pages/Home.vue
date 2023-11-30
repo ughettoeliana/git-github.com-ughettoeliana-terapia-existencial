@@ -1,8 +1,4 @@
 <script setup>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import BaseTextarea from "../components/BaseTextarea.vue";
 import { ref } from "vue";
 
 const homeLoading = ref(false);

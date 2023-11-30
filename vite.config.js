@@ -1,20 +1,20 @@
 // Importamos el plugin de Vue.
-import vue from '@vitejs/plugin-vue';
+import vue from "@vitejs/plugin-vue";
+// vite.config.ts
+import { defineConfig } from "vite";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
-
-// Exportamos la configuración de Vite.
-export default {
-    // Agregamos el plugin de Vue.
-    plugins: [vue()],
-}
-
-// export default {
-//     plugins: [vue({
-//       template: {
-//         compilerOptions: {
-//           // i am ignorning my custom '<container>' tag
-//           isCustomElement: (tag) => ['li'].includes(tag)
-//         }
-//       }
-//     })]
-//   }
+export default defineConfig({
+  // ...
+  plugins: [
+    [vue()],
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+  ],
+});

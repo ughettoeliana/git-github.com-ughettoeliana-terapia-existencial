@@ -1,39 +1,3 @@
-<!-- <script>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import { login } from "../services/auth";
-
-export default {
-  name: "Login",
-  components: { BaseButton, BaseLabel, BaseInput },
-  emits: ["logged"],
-  data() {
-    return {
-      loginLoading: false,
-      form: {
-        email: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    doLogin() {
-      this.loginLoading = true;
-      login({
-        ...this.form,
-      })
-        .then((user) => {
-          this.$emit("logged", { ...user });
-        })
-        .finally(() => {
-          this.loginLoading = false;
-          this.$router.push("/servicios");
-        });
-    },
-  },
-};
-</script> -->
 
 <script setup>
 import { ref } from "vue";

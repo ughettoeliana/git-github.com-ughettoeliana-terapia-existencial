@@ -1,28 +1,3 @@
-<!-- <script>
-import Loader from "../components/Loader.vue";
-import { getUserProfileById } from "../services/user";
-
-export default {
-  name: "UserProfile",
-  components: { Loader },
-  data() {
-    return {
-      userLoding: true,
-      user: {
-        id: null,
-        email: null,
-        rol: null,
-      },
-      loggedUser: {},
-    };
-  },
-  async mounted() {
-    this.userLoding = true;
-    this.loggedUser = await getUserProfileById(this.$route.params.id);
-    this.userLoding = false;
-  },
-};
-</script> -->
 <script setup>
 import { onMounted, ref } from "vue";
 import Loader from "../components/Loader.vue";

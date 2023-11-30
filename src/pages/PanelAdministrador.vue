@@ -1,47 +1,9 @@
-<!-- <script>
-import PanelAdminNav from "../components/PanelAdminNav.vue";
-import Loader from "../components/Loader.vue";
-import { getServicesData, deleteServiceByID } from "../services/service";
-
-export default {
-  name: "PanelAdministrador",
-  components: { Loader, PanelAdminNav },
-  data() {
-    return {
-      modalVisible: false,
-      panelLoading: true,
-      services: [],
-      selectedService: null,
-    };
-  },
-  async mounted() {
-    this.services = await getServicesData();
-    this.panelLoading = false;
-  },
-  methods: {
-    showModal(service) {
-      this.selectedService = service;
-      this.modalVisible = true;
-    },
-    closeModal() {
-      this.modalVisible = false;
-      this.selectedService = null;
-    },
-    async deleteService(id) {
-      const deleted = await deleteServiceByID(id);
-      if (deleted) {
-        this.services = this.services.filter((service) => service.id !== id);
-      }
-    },
-  },
-};
-</script> -->
-
 <script setup>
 import PanelAdminNav from "../components/PanelAdminNav.vue";
 import Loader from "../components/Loader.vue";
 import { ref, onMounted } from "vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
+import { Delete } from "@element-plus/icons-vue";
 
 const deletingService = ref(false);
 const modalVisible = ref(false);
@@ -132,6 +94,7 @@ onMounted(async () => {
                       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                     >
                       <div class="bg-white p-8 rounded max-w-md text-xl">
+                       
                         <h2 class="">
                           Eliminar:
                           <span class="text-red-500 font-medium">{{

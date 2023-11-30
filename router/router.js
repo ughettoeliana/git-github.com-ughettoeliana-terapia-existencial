@@ -9,21 +9,23 @@ import Chat from './../src/pages/chat.vue';
 import PanelAdministrador from './../src/pages/PanelAdministrador.vue';
 import CreateNewService from './../src/pages/CreateNewService.vue';
 import Services from './../src/pages/Services.vue';
+import SelectDate from './../src/pages/SelectDate.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { subscribeToAuth } from '../src/services/auth';
 
 const routes = [
-  { path: '/',                 component: Home },
-  { path: '/quienes-somos',    component: About },
-  { path: '/iniciar-sesion',   component: Login },
-  { path: '/registro',         component: Register },
-  { path: '/servicios',        component: Services,                meta: { requiresAuth: true }, },
-  { path: '/perfil',           component: MyProfile,               meta: { requiresAuth: true }, },
-  { path: '/panel',            component: PanelAdministrador,      meta: { requiresAuth: true }, },
-  { path: '/create-service',   component: CreateNewService,        meta: { requiresAuth: true }, },
-  { path: '/users-list',       component: UsersList,               meta: { requiresAuth: true }, },
-  { path: '/usuario/:id',      component: UserProfile,             meta: { requiresAuth: true }, },
-  { path: '/usuario/:id/chat', component: Chat,                    meta: { requiresAuth: true }, },
+  { path: '/',                               component: Home },
+  { path: '/quienes-somos',                  component: About },
+  { path: '/iniciar-sesion',                 component: Login },
+  { path: '/registro',                       component: Register },
+  { path: '/servicios',                      component: Services,                meta: { requiresAuth: true }, },
+  { path: '/servicios/seleccionar-fecha',    component: SelectDate,                meta: { requiresAuth: true }, },
+  { path: '/perfil',                         component: MyProfile,               meta: { requiresAuth: true }, },
+  { path: '/panel',                          component: PanelAdministrador,      meta: { requiresAuth: true }, },
+  { path: '/create-service',                 component: CreateNewService,        meta: { requiresAuth: true }, },
+  { path: '/users-list',                     component: UsersList,               meta: { requiresAuth: true }, },
+  { path: '/usuario/:id',                    component: UserProfile,             meta: { requiresAuth: true }, },
+  { path: '/usuario/:id/chat',               component: Chat,                    meta: { requiresAuth: true }, },
 ];
 
 const router = createRouter({

@@ -1,37 +1,3 @@
-<!-- <script>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import { register } from "../services/auth";
-import { ref } from "firebase/database";
-
-export default {
-  name: "Register",
-  components: { BaseButton, BaseLabel, BaseInput },
-  data() {
-    return {
-      registerLoding: false,
-      newUser: {
-        email: "",
-        password: "",
-      },
-    };
-  },
-
-  methods: {
-    async handleRegister() {
-      this.registerLoding = true;
-      try {
-        await register({ ...this.newUser });
-        this.$router.push("/servicios");
-      } catch (error) {
-        console.log(error);
-      }
-      this.registerLoding = false;
-    },
-  },
-};
-</script> -->
 <script setup>
 import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";

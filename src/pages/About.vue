@@ -1,4 +1,3 @@
-
 <template>
   <div class="max-h-screen max-w-4xl mx-auto mb-10">
     <h1 class="text-3xl text-center font-medium my-5">Sobre mi</h1>

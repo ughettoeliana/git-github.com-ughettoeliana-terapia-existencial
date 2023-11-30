@@ -1,39 +1,3 @@
-<!-- <script>
-import BaseButton from "../components/BaseButton.vue";
-import BaseInput from "../components/BaseInput.vue";
-import BaseLabel from "../components/BaseLabel.vue";
-import BaseNavLi from "../components/BaseNavLi.vue";
-import PanelAdminNav from "../components/PanelAdminNav.vue";
-import { newService } from "../services/service";
-
-export default {
-  name: "CreateNewService",
-  components: { BaseButton, BaseLabel, BaseInput, BaseNavLi, PanelAdminNav },
-  data() {
-    return {
-      createServiceLoading: false,
-      form: {
-        name: "",
-        time: "",
-        modality: "",
-        price: "",
-      },
-    };
-  },
-  methods: {
-    async handleCreateNewService() {
-      this.createServiceLoading = true;
-      try {
-        await newService({ ...this.form });
-        this.$router.push("/panel");
-      } catch (error) {
-        console.log(error);
-      }
-      this.createServiceLoading = false;
-    },
-  },
-};
-</script> -->
 <script setup>
 import { ref } from "vue";
 import BaseButton from "../components/BaseButton.vue";
