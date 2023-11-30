@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, onMounted } from "vue";
 import Loader from "../components/Loader.vue";
@@ -9,7 +8,6 @@ import { getHiredServices } from "../services/service";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
-
 const userLoding = ref(true);
 const user = ref({
   id: null,
@@ -32,11 +30,15 @@ const toggleEditMode = () => {
 };
 
 const handleUpdateUser = () => {
-  const userId = loggedUser.value.id;
-  updateUserData(userId, editedUser.value);
-  loggedUser.value.fullName = editedUser.value.fullName;
-  loggedUser.value.bio = editedUser.value.bio;
-  editMode.value = false;
+  try {
+    const userId = loggedUser.value.id;
+    updateUserData(userId, editedUser.value);
+    loggedUser.value.fullName = editedUser.value.fullName;
+    loggedUser.value.bio = editedUser.value.bio;
+    editMode.value = false;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 onMounted(async () => {
@@ -135,25 +137,29 @@ onMounted(async () => {
         </div>
       </div>
       <div>
-        <!-- <div
+        <div
           class="p-5 flex flex-col"
           v-for="hiredService in hiredServices"
           :key="hiredService.id"
         >
           <div class="rounded-xl border border-solid border-slate-200 p-5">
             <div>
-              <h2 class="text-darkBlue text-xl font-semibold">{{ hiredService.name }}</h2>
+              <h2 class="text-darkBlue text-xl font-semibold">
+                {{ hiredService.name }}
+              </h2>
               <p>
                 <i class="fa-solid fa-clock" style="color: #21496b"></i>
                 {{ hiredService.time }}
               </p>
               <p>$ {{ hiredService.price }}</p>
+              <p>{{ hiredService.appointment.date }}</p>
+              <p>{{ hiredService.appointment.hour  }}</p>
               <p class="py-2">
                 Agendaste una sesión con el consultor Daniel del Valle
               </p>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </template>

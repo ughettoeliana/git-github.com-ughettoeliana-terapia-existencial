@@ -3,8 +3,9 @@ import BaseButton from "../components/BaseButton.vue";
 import BaseInput from "../components/BaseInput.vue";
 import BaseLabel from "../components/BaseLabel.vue";
 import { register } from "../services/auth";
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import { useRouter } from "vue-router";
+
 
 const router = useRouter();
 const registerLoding = ref(false);
@@ -17,6 +18,11 @@ const handleRegister = async () => {
   registerLoding.value = true;
   try {
     await register({ ...newUser.value });
+    setNotification({
+      message: 'Te creaste una cuenta con éxito. Bienvenid@',
+      type: 'success',
+    })
+
     router.push("/servicios");
   } catch (error) {
     console.log(error);

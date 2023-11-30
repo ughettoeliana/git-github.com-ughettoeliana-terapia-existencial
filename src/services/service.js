@@ -50,23 +50,6 @@ export async function getServicesData() {
   }
 }
 
-export async function getServicesDataById(id) {
-  try {
-    const serviceRef = doc(db, "services", id);
-    const serviceDoc = await getDoc(serviceRef);
-
-    const service = {
-      name: serviceRef.data().name,
-    };
-
-    console.log("service.name", service.name);
-    //return true;
-  } catch (error) {
-    console.error("Error al eliminar el servicio:", error);
-    return false;
-  }
-}
-
 export async function deleteServiceByID(id) {
   try {
     const serviceRef = doc(db, "services", id);
@@ -83,8 +66,6 @@ export async function hireService(
   userId,
   appointmentDateAndHour = {}
 ) {
-  console.log("serviceId", serviceId);
-  console.log("userId", userId);
   try {
     const serviceRef = doc(db, "services", serviceId);
     const serviceDoc = await getDoc(serviceRef);
@@ -105,10 +86,6 @@ export async function hireService(
       };
 
       const newService = await addDoc(hiredService, hiredServiceData);
-      console.log(
-        "Servicio contratado con éxito y guardado en Firebase.",
-        newService.id
-      );
       return true;
     } else {
       console.error("El servicio no existe.");
@@ -135,6 +112,10 @@ export async function getHiredServices(userId) {
         modality: doc.data().modality,
         price: doc.data().price,
         time: doc.data().time,
+        appointment: {
+          date: doc.data().date,
+          hour: doc.data().hour,
+        },
       });
     });
 

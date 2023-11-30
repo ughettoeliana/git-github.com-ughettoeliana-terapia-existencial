@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import BaseButton from "../components/BaseButton.vue";
-import { subscribeToAuth } from "../services/auth";
-import { getServicesDataById, hireService } from "../services/service";
+import { hireService } from "../services/service";
 import { useRouter } from "vue-router";
-import { getUserProfileById } from "../services/user";
 
 const dateValue = ref(new Date());
 const hourValue = ref("");
 const modalVisible = ref(false);
+const notification = ref({
+  message: null as string | null,
+  type: null as string | null,
+});
 const appointmentDateAndHour = ref({
   date: null as string | null,
   hour: null as string | null,
@@ -22,7 +24,6 @@ const showModal = () => {
     hour: hourValue.value,
   };
 
-  console.log("appointmentDateAndHour", appointmentDateAndHour.value);
   modalVisible.value = true;
 };
 
@@ -34,16 +35,7 @@ const closeModal = () => {
   };
 };
 
-const handleDateSelect = () => {
-  console.log("Día seleccionado:", dateValue.value);
-};
-
-const handleTimeChange = () => {
-  console.log("Hora seleccionada:", hourValue.value);
-};
-
 const formattedDate = computed(() => {
-  const options = { year: "numeric", month: "long", day: "numeric" };
   return dateValue.value.toLocaleDateString("es-ES");
 });
 
@@ -52,20 +44,37 @@ const confirmAppointment = async () => {
   let userId = router.currentRoute.value.query.userId;
 
   // Eliminar comillas de los ids
-  serviceId = (serviceId as string)?.replace(/['"]+/g, '') || null;
-  userId = (userId as string)?.replace(/['"]+/g, '') || null;
+  serviceId = (serviceId as string)?.replace(/['"]+/g, "") || null;
+  userId = (userId as string)?.replace(/['"]+/g, "") || null;
 
-  console.log("serviceId", serviceId);
-  console.log("userId", userId);
-
-  modalVisible.value = false;
-  const success = await hireService(serviceId, userId, appointmentDateAndHour.value);
-  console.log(success);
-
-  if (success) {
-    console.log("se contrató el servicio con éxito");
+  if (!dateValue.value || !hourValue.value) {
+    modalVisible.value = false;
+    notification.value = {
+      message: "Selecciona la fecha y hora de la cita antes de continuar",
+      type: "error",
+    };
+    return;
   } else {
-    console.log("hubo un error");
+    modalVisible.value = false;
+    const success = await hireService(
+      serviceId,
+      userId,
+      appointmentDateAndHour.value
+    );
+    console.log(success);
+
+    if (success) {
+      notification.value = {
+        message: "Se agendó la cita con éxito. Muchas gracias",
+        type: "success",
+      };
+      router.push('/perfil')
+    } else {
+      notification.value = {
+        message: "No se pudo agendar la cita. Intentalo de nuevo más tarde",
+        type: "error",
+      };
+    }
   }
 };
 </script>
@@ -76,12 +85,7 @@ const confirmAppointment = async () => {
       Seleccioná la fecha de la entrevista
     </h1>
     <div class="flex flex-col justify-center items-center text-center my-4">
-      <el-calendar
-        class="max-w-2xl"
-        v-model="dateValue"
-        :mini="true"
-        @select="handleDateSelect"
-      />
+      <el-calendar class="max-w-2xl" v-model="dateValue" :mini="true" />
     </div>
   </div>
   <div class="text-center my-5 pb-5">
@@ -96,7 +100,6 @@ const confirmAppointment = async () => {
         end="18:30"
         placeholder="Select time"
         class="text-black"
-        @change="handleTimeChange"
       />
     </div>
   </div>
@@ -134,5 +137,8 @@ const confirmAppointment = async () => {
         </button>
       </div>
     </div>
+  </div>
+  <div class="flex justify-around items-center max-w-lg text-center p-2 mx-auto text-md" v-if="notification.message != null" :class="{ 'text-green-500 bg-green-200 rounded-xl': notification.type === 'success', 'text-red-500 bg-red-200 rounded-xl': notification.type === 'error' }">
+    {{ notification.message }}
   </div>
 </template>

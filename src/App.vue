@@ -1,46 +1,23 @@
-<!-- <script>
-import BaseButton from "./components/BaseButton.vue";
-import BaseNavLi from "./components/BaseNavLi.vue";
-import { subscribeToAuth, logout } from "./services/auth";
-import { getUserProfileById } from "./services/user";
-
-export default {
-  name: "App",
-  components: { BaseButton, BaseNavLi },
-  data() {
-    return {
-      user: {
-        id: null,
-        email: null,
-        rol: null,
-      },
-      loggedUser: {},
-    };
-  },
-  methods: {
-    handleLogout() {
-      logout();
-      this.$router.push("/iniciar-sesion");
-    },
-  },
-  mounted() {
-    subscribeToAuth(async (user) => {
-      console.log("nueva autenticacion:", user);
-      this.user = { ...user };
-      this.loggedUser = await getUserProfileById(this.user.id);
-      console.log("usuario logeado:", this.loggedUser);
-    });
-  },
-};
-</script> -->
-
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide, readonly } from "vue";
 import BaseButton from "./components/BaseButton.vue";
 import BaseNavLi from "./components/BaseNavLi.vue";
 import { subscribeToAuth, logout } from "./services/auth";
 import { getUserProfileById } from "./services/user";
 import { useRouter } from "vue-router";
+// const notification = ref({
+//   message: null,
+//   type: "success",
+// });
+
+// function setNotification(data) {
+//   notification.value = data;
+// }
+
+// provide("notification", {
+//   notification: readonly(notification),
+//   setNotification,
+// });
 
 const router = useRouter();
 const user = ref({
