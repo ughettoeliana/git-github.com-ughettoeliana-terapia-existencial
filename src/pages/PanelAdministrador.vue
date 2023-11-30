@@ -40,9 +40,10 @@ export default {
 <script setup>
 import PanelAdminNav from "../components/PanelAdminNav.vue";
 import Loader from "../components/Loader.vue";
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { getServicesData, deleteServiceByID } from "../services/service";
 
+const deletingService = ref(false);
 const modalVisible = ref(false);
 const panelLoading = ref(true);
 const services = ref([]);
@@ -59,9 +60,17 @@ const closeModal = () => {
 };
 
 const deleteService = async (id) => {
-  const deleted = await deleteServiceByID(id);
-  if (deleted) {
-    services.value = services.value.filter((service) => service.id !== id);
+  try {
+    deletingService.value = true;
+
+    const deleted = await deleteServiceByID(id);
+    if (deleted) {
+      services.value = services.value.filter((service) => service.id !== id);
+    }
+  } catch (error) {
+    console.error("Error durante la eliminación del servicio:", error);
+  } finally {
+    deletingService.value = false;
   }
 };
 
@@ -71,36 +80,48 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="panel-page">
-    <h1 class="h1">Panel Administrador</h1>
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="text-2xl font-medium p-3">Panel Administrador</h1>
 
     <PanelAdminNav />
 
     <Loader v-if="panelLoading" />
     <template v-else>
-      <div class="">
-        <table class="table">
-          <thead>
+      <div class="my-10">
+        <table>
+          <thead class="px-2">
             <tr>
-              <th class="">Servicio</th>
-              <th class="">Tiempo</th>
-              <th class="">Modalidad</th>
-              <th class="">Precio</th>
-              <th class="">Acciones</th>
+              <th class="px-2">Servicio</th>
+              <th class="px-2">Tiempo</th>
+              <th class="px-2">Modalidad</th>
+              <th class="px-2">Precio</th>
+              <th class="px-2">Acciones</th>
             </tr>
           </thead>
           <template v-for="service in services" :key="service.id">
             <tbody>
-              <tr>
-                <td class="grey-bg">{{ service.name }}</td>
-                <td class="grey-bg">{{ service.time }}</td>
-                <td class="grey-bg">{{ service.modality }}</td>
-                <td class="grey-bg">${{ service.price }}</td>
-                <td class="grey-bg">
-                  <div class="">
+              <tr
+                class="bg-slate-100 border border-solid border-white p-2 text-center"
+              >
+                <td class="bg-slate-100 border-2 border-solid border-white p-2">
+                  {{ service.name }}
+                </td>
+                <td class="bg-slate-100 border-2 border-solid border-white p-2">
+                  {{ service.time }}
+                </td>
+                <td class="bg-slate-100 border-2 border-solid border-white p-2">
+                  {{ service.modality }}
+                </td>
+                <td
+                  class="bg-slate-100 border-2 border-solid-2 border-white p-2"
+                >
+                  ${{ service.price }}
+                </td>
+                <td class="bg-slate-100 border-solid border-2 border-white p-2">
+                  <div class="p-3">
                     <button
                       type="button"
-                      class="btn btn-danger"
+                      class="rounded-lg p-2 bg-red-500 text-white"
                       @click="showModal(service)"
                     >
                       Eliminar
@@ -108,20 +129,35 @@ onMounted(async () => {
                     <!-- Modal-->
                     <div
                       v-if="modalVisible && selectedService === service"
-                      class="modal"
+                      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                     >
-                      <div class="modal-content">
-                        <h2>Eliminar: {{ service.name }}</h2>
-                        <p>¿Estás seguro que queres eliminar este servicio?</p>
-                        <button @click="closeModal" class="btn-close">
-                          Cerrar
-                        </button>
-                        <button
-                          class="btn-danger"
-                          @click="deleteService(service.id)"
-                        >
-                          Si, estoy seguro
-                        </button>
+                      <div class="bg-white p-8 rounded max-w-md text-xl">
+                        <h2 class="">
+                          Eliminar:
+                          <span class="text-red-500 font-medium">{{
+                            service.name
+                          }}</span>
+                        </h2>
+                        <p class="py-3 mb-8">
+                          ¿Estás seguro que queres eliminar este servicio?
+                        </p>
+                        <div class="flex justify-around items-center my-4">
+                          <button
+                            @click="closeModal"
+                            class="rounded-lg p-2 bg-slate-400 text-white"
+                          >
+                            Cerrar
+                          </button>
+                          <button
+                            class="rounded-lg p-2 bg-red-500 text-white"
+                            @click="deleteService(service.id)"
+                          >
+                            Si, eliminar
+                          </button>
+                        </div>
+                        <Loader
+                          v-if="deletingService && selectedService === service"
+                        />
                       </div>
                     </div>
                   </div>

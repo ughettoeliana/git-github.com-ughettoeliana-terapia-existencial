@@ -40,7 +40,9 @@ import BaseButton from "./components/BaseButton.vue";
 import BaseNavLi from "./components/BaseNavLi.vue";
 import { subscribeToAuth, logout } from "./services/auth";
 import { getUserProfileById } from "./services/user";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const user = ref({
   id: null,
   email: null,
@@ -50,15 +52,13 @@ const loggedUser = ref({});
 
 const handleLogout = () => {
   logout();
-  $router.push("/iniciar-sesion");
+  router.push("/iniciar-sesion");
 };
 
 onMounted(async () => {
   subscribeToAuth(async (userData) => {
-    console.log("Nueva autenticación:", userData);
     user.value = { ...userData };
     loggedUser.value = await getUserProfileById(user.value.id);
-    console.log("Usuario logeado:", loggedUser.value);
   });
 });
 </script>
@@ -80,35 +80,39 @@ onMounted(async () => {
             >
           </BaseNavLi>
 
-          <template v-if="loggedUser.rol === 'admin'">
-            <BaseNavLi
-              ><router-link to="/panel" class="text-gray-500"
-                >Panel Administrador</router-link
-              >
-            </BaseNavLi>
-          </template>
-          <template v-else-if="loggedUser.rol === 'user'">
-            <BaseNavLi>
-              <router-link to="/perfil" class="text-gray-500"
-                >Mi Perfil</router-link
-              >
-            </BaseNavLi>
+          <template v-if="loggedUser && loggedUser.rol">
+            <template v-if="loggedUser.rol === 'admin'">
+              <BaseNavLi>
+                <router-link to="/panel" class="text-gray-500"
+                  >Panel Administrador</router-link
+                >
+              </BaseNavLi>
+            </template>
+            <template v-else-if="loggedUser.rol === 'user'">
+              <BaseNavLi>
+                <router-link to="/perfil" class="text-gray-500"
+                  >Mi Perfil</router-link
+                >
+              </BaseNavLi>
+            </template>
           </template>
         </div>
 
         <template v-if="user.id === null">
-          
-            <BaseNavLi
-              ><router-link to="/iniciar-sesion" class="login-btn"
-                >Iniciar sesión</router-link
-              >
-            </BaseNavLi>
-            <BaseNavLi
-              ><router-link to="/registro" class="register-btn"
-                >Registro</router-link
-              >
-            </BaseNavLi>
-          
+          <BaseNavLi
+            ><router-link
+              to="/iniciar-sesion"
+              class="text-darkBlue font-medium bg-lightBlue p-2 rounded-lg border border-solid border-lightBlue hover:border-primary"
+              >Iniciar sesión</router-link
+            >
+          </BaseNavLi>
+          <BaseNavLi
+            ><router-link
+              to="/registro"
+              class="text-darkBlue font-medium p-2 rounded-lg bg-lighterBlue hover:bg-lightBlue"
+              >Registro</router-link
+            >
+          </BaseNavLi>
         </template>
         <template v-else>
           <BaseNavLi>
@@ -134,19 +138,19 @@ onMounted(async () => {
   </div>
   <footer class="">
     <div class="flex justify-around text-lg bg-gray-100 p-10 mt-5">
-      <div class=" p-4">
+      <div class="p-4">
         <h5 class="font-semibold">Diseño y Programación Web</h5>
         <p><a class="text-gray-500">Profesor: Santiago Gallino</a></p>
         <p><a class="text-gray-500">Cliente Web Mobile</a></p>
         <p><a class="text-gray-500">4 Cuatrimestre</a></p>
       </div>
-      <div class=" p-4">
+      <div class="p-4">
         <h5 class="font-semibold">Davinci</h5>
         <p><a class="text-gray-500">Turno Noche</a></p>
         <p><a class="text-gray-500">Comision B</a></p>
-        <p><a class="text-gray-500">1er Parcial</a></p>
+        <p><a class="text-gray-500">2do Parcial</a></p>
       </div>
-      <div class=" p-4">
+      <div class="p-4">
         <h5 class="font-semibold">Alumna</h5>
         <p><a class="text-gray-500">Eliana Ughetto</a></p>
         <p><a class="text-gray-500">21 años</a></p>

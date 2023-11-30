@@ -1,9 +1,17 @@
-import { doc, getDoc, getDocs, serverTimestamp, setDoc, collection, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 /**
- * 
- * @param {string} id 
+ *
+ * @param {string} id
  * @returns {Promise<{id: string, email: string, rol: string}>}
  */
 export async function getUserProfileById(id) {
@@ -11,27 +19,24 @@ export async function getUserProfileById(id) {
   const docSnapshot = await getDoc(refUser);
 
   if (docSnapshot.exists()) {
-    console.log("Document data:", docSnapshot.data());
     return {
       id: docSnapshot.id,
       email: docSnapshot.data().email,
       rol: docSnapshot.data().rol,
       fullName: docSnapshot.data().fullName || null,
       bio: docSnapshot.data().bio || null,
-    }
+    };
   } else {
-    // docSnap.data() will be undefined in this case
     console.log("No such document!");
   }
 }
 
 /**
- * 
- * @param {string} userId 
- * @param {{fullName: string, bio: string}} editedUser 
- * 
+ *
+ * @param {string} userId
+ * @param {{fullName: string, bio: string}} editedUser
+ *
  */
-
 
 export async function updateUserData(userId, editedUser) {
   try {
@@ -46,12 +51,12 @@ export async function updateUserData(userId, editedUser) {
 }
 
 /**
- * 
+ *
  * @returns un listado de usuarios con sus datos
  */
 
 export async function getUsers() {
-  const usersRef = collection(db, 'users');
+  const usersRef = collection(db, "users");
 
   try {
     const querySnapshot = await getDocs(usersRef);
@@ -60,22 +65,21 @@ export async function getUsers() {
     querySnapshot.forEach((doc) => {
       users.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       });
     });
 
-    console.log('Estos son los usuarios:', users);
     return users;
   } catch (error) {
-    console.error('Error al obtener los usuarios:', error);
+    console.error("Error al obtener los usuarios:", error);
     return [];
   }
 }
 
 /**
- * 
- * @param {string} id 
- * @param {{email: string, rol: string}} data 
+ *
+ * @param {string} id
+ * @param {{email: string, rol: string}} data
  * @returns {Promise}
  */
 export async function createUserProfile(id, data) {

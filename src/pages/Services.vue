@@ -91,10 +91,7 @@ const handleScheduleAppointment = async (service) => {
   selectedService.value = service;
   const userId = loggedUser.value.id;
   modalVisible.value = false;
-  console.log("serviceId", selectedService.value.id);
-  console.log("userId", userId);
   const success = await hireService(selectedService.value.id, userId);
-  console.log("success", success);
 
   if (success) {
     console.log("se contrató el servicio con éxito");
@@ -127,8 +124,8 @@ onMounted(async () => {
             v-for="service in services"
             :key="service.id"
           >
-            <div class="rounded-xl shadow p-5">
-              <div class="card-body">
+            <div class="rounded-xl  border border-solid border-slate-200 p-5">
+              <div class="">
                 <h2 class="text-darkBlue text-xl font-semibold">
                   {{ service.name }}
                 </h2>

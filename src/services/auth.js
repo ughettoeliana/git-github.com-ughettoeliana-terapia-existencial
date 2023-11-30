@@ -79,7 +79,8 @@ async function asignUserRol(userId, rol) {
  * @return {Promise}
  */
 
-export function login({ email, password }) {
+
+export async function login({ email, password }) {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
       return { ...userData };

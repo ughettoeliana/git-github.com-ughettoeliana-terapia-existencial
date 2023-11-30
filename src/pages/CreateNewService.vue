@@ -56,7 +56,7 @@ const form = ref({
       const handleCreateNewService = async ()=>{
         createServiceLoading.value = true;
         try {
-          await newService({ ...this.form });
+          await newService({ ...form.value });
           router.push("/panel");
         } catch (error) {
           console.log(error);
@@ -65,13 +65,13 @@ const form = ref({
       }
 </script>
 <template>
-  <div class="create-new-service-page">
-    <h1 class="h1">Crear un nuevo servicio</h1>
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="text-xl">Crear un nuevo servicio</h1>
     <PanelAdminNav />
 
-    <div class="form">
-      <form action="#" @submit.prevent="handleCreateNewService" class="form">
-        <div class="form-group">
+    <div class="">
+      <form action="#" @submit.prevent="handleCreateNewService" class="">
+        <div class="flex flex-col">
           <BaseLabel for="name">Nombre</BaseLabel>
           <BaseInput
             id="name"
@@ -82,8 +82,8 @@ const form = ref({
             required
           />
         </div>
-        <div class="d-flex">
-          <div class="form-group">
+        <div class="flex flex-row">
+          <div class="flex flex-col">
             <BaseLabel for="time">Tiempo</BaseLabel>
             <BaseInput
               id="time"
@@ -92,9 +92,10 @@ const form = ref({
               v-model="form.time"
               :disabled="createServiceLoading"
               required
+              class=" mr-5"
             />
           </div>
-          <div class="form-group">
+          <div class="flex flex-col">
             <BaseLabel for="price">Precio</BaseLabel>
             <BaseInput
               class="price-input"
@@ -107,9 +108,9 @@ const form = ref({
             />
           </div>
         </div>
-        <div class="form-group">
+        <div class="mt-8">
           <p>Modalidad</p>
-          <div class="">
+          <div class="pr-2">
             <input
               class=""
               type="radio"
@@ -120,7 +121,7 @@ const form = ref({
             />
             <label class="" for="virtual"> Virtual </label>
           </div>
-          <div class="">
+          <div class="pr-2">
             <input
               class=""
               type="radio"
@@ -131,7 +132,7 @@ const form = ref({
             />
             <label class="" for="presencial"> Presencial </label>
           </div>
-          <p v-if="!form.modality" class="text-danger">
+          <p v-if="!form.modality" class="text-red-500">
             Debes seleccionar al menos una opción.
           </p>
         </div>

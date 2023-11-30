@@ -48,7 +48,7 @@ onMounted(async () => {
   <Loader v-if="userLoding" />
   <template v-else>
     <div class="main-user-info-container">
-      <h1 class="h1">
+      <h1 class="text-2xl">
         <i class="fa-solid fa-user" style="color: #21496b"></i> Perfil de
       </h1>
       <div class="">

@@ -3,10 +3,7 @@ import BaseButton from "../components/BaseButton.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
 import Loader from "../components/Loader.vue";
 import { getUserProfileById } from "../services/user";
-import {
-  sendChatMessage,
-  subscribeToChat,
-} from "../services/chat";
+import { sendChatMessage, subscribeToChat } from "../services/chat";
 import { subscribeToAuth } from "../services/auth";
 import {} from "../services/chat";
 import { dateToString } from "../helpers/date";
@@ -37,10 +34,11 @@ export default {
   methods: {
     handleSendMessage() {
       sendChatMessage({
-        senderId: this.authUser.id,
+        senderId: this.authUser.id, 
         receiverId: this.user.id,
         message: this.newMessage.message,
       });
+
       this.newMessage.message = "";
     },
     formatDate(date) {
@@ -75,47 +73,49 @@ export default {
 <template>
   <Loader v-if="userLoading" />
   <template v-else>
-    <h1 class="h1">Chat con {{ user.email }}</h1>
-    <div class="">
-      <Loader v-if="messagesLoading" />
-      <template v-else>
-        <div
-          class="chat-message-container"
-        >
-          <div
-            v-for="message in messages"
-            :key="message.id"
-            class="chat-message"
-            :class="{
-              'bg-light-blue': message.senderId !== authUser.id,
-              'bg-lighter-blue': message.senderId === authUser.id,
-              'align-self-start': message.senderId !== authUser.id,
-              'align-self-end': message.senderId === authUser.id,
-            }"
-          >
-            <div class="">{{ message.message }}</div>
-            <div class="time-message grey-text">
-              {{ formatDate(message.created_at) || "Enviando..." }}
+    <h1 class="text-2xl text-center">
+      Chat con <span class="font-semibold"> {{ user.email }}</span>
+    </h1>
+    <div
+      class="max-w-1200 flex flex-col justify-center items-center p-4 max-w-sm mx-auto my-20 rounded-lg border border-solid border-slate-200"
+    >
+      <div class="my-10">
+        <Loader v-if="messagesLoading" />
+        <template v-else>
+          <div class="flex flex-row justify-evenly">
+            <div
+              v-for="message in messages"
+              :key="message.id"
+              class="rounded-xl p-2"
+              :class="{
+                'bg-lightBlue': message.senderId !== authUser.id,
+                'bg-lighterBlue': message.senderId === authUser.id,
+                'self-start': message.senderId !== authUser.id,
+                'self-end': message.senderId === authUser.id,
+              }"
+            >
+              <div class="">{{ message.message }}</div>
+              <div class="time-message text-greyText">
+                {{ formatDate(message.created_at) || "Enviando..." }}
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </div>
-    <form
-      action="#"
-      @submit.prevent="handleSendMessage"
-    >
-      <div class="send-message-form">
-        <div class="form-group">
-          <BaseTextarea
-            id="message"
-            v-model="newMessage.message"
-          ></BaseTextarea>
-        </div>
-        <div class="">
-          <BaseButton></BaseButton>
-        </div>
+        </template>
       </div>
-    </form>
+      <form action="#" @submit.prevent="handleSendMessage" class="">
+        <div class="flex">
+          <div class="">
+            <BaseTextarea
+              id="message"
+              class="max-h-10"
+              v-model="newMessage.message"
+            ></BaseTextarea>
+          </div>
+          <div class="mx-2">
+            <BaseButton></BaseButton>
+          </div>
+        </div>
+      </form>
+    </div>
   </template>
 </template>

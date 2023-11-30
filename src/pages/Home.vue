@@ -129,7 +129,7 @@ const homeLoading = ref(false);
     </div>
     <div class="flex justify-evenly items-center my-16">
       <div
-        class="flex-grow-1 bg-blue items-stretch rounded-lg max-w-xs m-8 p-8"
+        class="flex-grow-1 bg-lightBlue items-stretch rounded-lg max-w-xs m-8 p-8"
       >
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="text-greyText">
@@ -138,7 +138,7 @@ const homeLoading = ref(false);
         </p>
       </div>
       <div
-        class="flex-grow-1 bg-blue items-stretch rounded-lg max-w-xs m-8 p-8"
+        class="flex-grow-1 bg-lightBlue items-stretch rounded-lg max-w-xs m-8 p-8"
       >
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="text-greyText">
@@ -146,7 +146,7 @@ const homeLoading = ref(false);
           ella, sino de experimentarlo con aceptación
         </p>
       </div>
-      <div class="flex-grow-1 bg-blue rounded-lg max-w-xs m-8 p-8">
+      <div class="flex-grow-1 bg-lightBlue rounded-lg max-w-xs m-8 p-8">
         <i class="fa-solid fa-heart" style="color: #21496b"></i>
         <p class="text-greyText">
           Me siento más feliz simplemente por ser yo mismo y dejar que los otros

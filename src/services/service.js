@@ -16,7 +16,6 @@ export async function newService({ name, time, modality, price }) {
     // Guarda los datos en la colección de servicios
     const newService = await addDoc(serviceRef, serviceData);
 
-    console.log('Servicio guardado con éxito en Firebase.', newService.id);
   } catch (error) {
     console.error('Error al guardar el servicio:', error);
   }
@@ -50,17 +49,14 @@ export async function deleteServiceByID(id) {
   try {
     const serviceRef = doc(db, 'services', id);
     await deleteDoc(serviceRef);
-    console.log('Servicio eliminado con éxito.');
-    return true; // Puedes devolver un valor para indicar que se eliminó con éxito
+    return true; 
   } catch (error) {
     console.error('Error al eliminar el servicio:', error);
-    return false; // Puedes devolver un valor para indicar que hubo un error
+    return false; 
   }
 }
 
 export async function hireService( serviceId, userId ) {
-  console.log('serviceId', serviceId)
-  console.log('userId', userId)
   try {
     const serviceRef = doc(db, "services", serviceId);
     const serviceDoc = await getDoc(serviceRef);
