@@ -32,10 +32,11 @@ export async function sendChatMessage({ senderId, receiverId, message }) {
 }
 
 /**
+ * Subscribe to chat messages between two users.
  *
- * @param {{senderId: string, receiverId: string}} users
- * @param {({}[]}) => void} callback
- * @returns {Promise<import("firebase/auth").Unsubscribe>}
+ * @param {{ senderId: string, receiverId: string }} users - Object containing senderId and receiverId.
+ * @param {() => void} callback - Callback function to handle received messages.
+ * @returns {Promise<import("firebase/auth").Unsubscribe>} - A promise that resolves to an unsubscribe function.
  */
 export async function subscribeToChat({ senderId, receiverId }, callback) {
   const chatDoc = await getChatDoc({ senderId, receiverId });
